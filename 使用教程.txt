@@ -1,0 +1,4 @@
+先运行OpenTickerFolder，程序会打开Ticker文件夹 然后解压Ticker补充包 选择你自己的FPS档位文件夹复制到Ticker文件夹
+运行OpenConfigSetting ， 程序会打开配置文件 你需要在里面按照你的喜好进行设置，FPS档位务必填写和你复制到Ticker文件夹的档位一样
+保存完毕后将整个项目文件夹复制到你的CS2 CFG文件夹 并更名为Sqaure
+添加启动项 +exec Sqaure/Setup 或者在Autoexec.cfg内填写 exec Sqaure/setup 即可

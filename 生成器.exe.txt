@@ -1,0 +1,5 @@
+目前没写生成器 给我手动配置！
+在KeyBinds.cfg和Setting.cfg 进行配置
+
+启动项
++exec Sqaure/Setup
