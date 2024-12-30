@@ -1,4 +1,32 @@
+//SqaureNextgen Alpha rc-2024123001 key=null
+
 先运行OpenTickerFolder，程序会打开Ticker文件夹 然后解压Ticker补充包 选择你自己的FPS档位文件夹复制到Ticker文件夹
 运行OpenConfigSetting ， 程序会打开配置文件 你需要在里面按照你的喜好进行设置，FPS档位务必填写和你复制到Ticker文件夹的档位一样
 保存完毕后将整个项目文件夹复制到你的CS2 CFG文件夹 并更名为Sqaure
 添加启动项 +exec Sqaure/Setup 或者在Autoexec.cfg内填写 exec Sqaure/setup 即可
+
+RC2024123001更新日志
+[+]实装了自动连跳
+[+]修改了文件结构
+
+
+RC2024122902更新日志
+[+]添加了应急恢复绑定
+[+]修复了66ms的Ticker未定义问题
+
+
+RC2024122901更新日志
+[+]优化了自动手枪模块
+[+]优化了CFG的加载逻辑
+[+]添加了6ms和66ms的Ticker
+[+]修复了除180fps外Ticker不生效的问题
+[+]修复了自动手枪无法激活的问题
+[+]优化连跳增强和自动手枪的兼容性
+[-]改动了默认FPS的获取方式
+[-]删除了9ms的Ticker
+
+RC2024122801更新日志
+[+]添加了自动手枪模块
+[+]添加了Snaptap、Nullbind移动方案
+[+]修复了诸多恶性问题
+[+]优化了Ticker加载方式，现在玩家需要自行复制
