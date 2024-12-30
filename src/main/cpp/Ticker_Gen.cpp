@@ -74,7 +74,11 @@ int main() {
 
         // 如果是后续文件，首先添加 sleep 累计时间
         if (i > 1) {
+				if(t==0){
+					 file << "sleep " << accumulated_time/2 << endl;
+				}else{
             file << "sleep " << accumulated_time << endl;
+				}
         }
 
         // 在文件开头添加 say_team ticker_<i> start
