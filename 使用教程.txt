@@ -1,9 +1,16 @@
-//SqaureNextgen Alpha rc-2024123101 key=null
+//SqaureNextgen Alpha 1.0 key=null
 
 运行OpenConfigSetting ， 程序会打开配置文件 你需要在里面按照你的喜好进行设置，请【不要】修改FPS档位 它和你的实际FPS无关 修改后将无法使用！
 如果你是第一次使用本CFG 配置完毕后运行GetCpuInfo 否则游戏将无法启动！
 保存完毕后将整个项目文件夹复制到你的CS2 CFG文件夹 并更名为Sqaure
 添加启动项 +exec Sqaure/Setup 或者在Autoexec.cfg内填写 exec Sqaure/setup 即可
+
+Alpha-1.0更新日志
+[+]修复了诸多问题
+
+
+RC2024123102更新日志
+[+]修复了准星跟随绑定不生效的问题
 
 RC2024123101更新日志
 [+]修复了Ticker计时错误的Bug
@@ -12,16 +19,13 @@ RC2024123101更新日志
 RC2024123002更新日志
 [+]兼容了自动手枪和自动连跳
 
-
 RC2024123001更新日志
 [+]实装了自动连跳
 [+]修改了文件结构
 
-
 RC2024122902更新日志
 [+]添加了应急恢复绑定
 [+]修复了66ms的Ticker未定义问题
-
 
 RC2024122901更新日志
 [+]优化了自动手枪模块
