@@ -74,7 +74,7 @@ void AppendToFile(const string& filePath, const string& content) {
 
 void HandleCpuTypeAndAppend(const string& vendor, const string& brand, const string& filePath, string& fps) {
     if (CheckForExistingAlias(filePath)) {
-       // cout << "文件中已存在 Sqaure_Fps_Default 命令. 未做任何更改." << endl;
+       cout << "文件中已存在 Sqaure_Fps_Default 命令. 未做任何更改." << endl;
         return;
     }
 
@@ -85,16 +85,16 @@ void HandleCpuTypeAndAppend(const string& vendor, const string& brand, const str
             brand.find("Intel(R) Core(TM) i5-12400K") != string::npos ||
             brand.find("Intel(R) Core(TM) i5-12400KF") != string::npos ||
             brand.find("Intel(R) Core(TM) i5-12600") != string::npos) {
-            aliasCommand = "alias Sqaure_Fps_Default \"fps_max 164\"";
+            aliasCommand = "alias Sqaure_Fps_Default \"fps_max 239\"";
             fps = "164";
         }
         else {
-            aliasCommand = "alias Sqaure_Fps_Default \"fps_max 239\"";
+            aliasCommand = "alias Sqaure_Fps_Default \"fps_max 539\"";
             fps = "239";
         }
     }
     else if (vendor == "AuthenticAMD") {
-        if (brand.find("AMD Ryzen 7500") != string::npos) {
+        if (brand.find("AMD Ryzen 7500F") != string::npos) {
             aliasCommand = "alias Sqaure_Fps_Default \"fps_max 539\"";
             fps = "539";
         }

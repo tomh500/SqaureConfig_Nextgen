@@ -1,13 +1,21 @@
-//SqaureNextgen Alpha 1.0 key=null
+//SqaureNextgen Alpha 1.1 key=null
 
-运行OpenConfigSetting ， 程序会打开配置文件 你需要在里面按照你的喜好进行设置，请【不要】修改FPS档位 它和你的实际FPS无关 修改后将无法使用！
+运行OpenConfigSetting ， 程序会打开配置文件 ，如果无法打开，可以运行 OpenConfigSettingFolder 手动配置CFG 你需要在里面按照你的喜好进行设置，请【不要】修改FPS档位 它和你的实际FPS无关 修改后将无法使用！
 如果你是第一次使用本CFG 配置完毕后运行GetCpuInfo 否则游戏将无法启动！
 保存完毕后将整个项目文件夹复制到你的CS2 CFG文件夹 并更名为Sqaure
 添加启动项 +exec Sqaure/Setup 或者在Autoexec.cfg内填写 exec Sqaure/setup 即可
 
-Alpha-1.0更新日志
+Alpha-1.1.1更新日志
+[+]修复了W跳投不生效的问题
+[+]为自动连跳添加了B方案
+[+]添加5E 32分钟计时
+[+]放宽了对英特尔型号的CPU惩罚
+
+Alpha-1.1更新日志
 [+]修复了诸多问题
 
+Alpha-1.0更新日志
+[+]修复了诸多问题
 
 RC2024123102更新日志
 [+]修复了准星跟随绑定不生效的问题
