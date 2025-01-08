@@ -138,7 +138,10 @@ int main(int argc, char* argv[]) {
 
         // 如果是后续文件，首先添加 sleep 累计时间
         if (i > 1) {
-            file << "sleep " << accumulated_time << endl;
+		if(t!=0){
+            file << "sleep " << accumulated_time << endl;}
+else { file << "sleep " << accumulated_time/2 << endl;}
+		
         }
 
         // 在文件开头添加 say_team ticker_<i> start
@@ -152,6 +155,7 @@ int main(int argc, char* argv[]) {
             if (t > 0) {
                 file << "sleep " << t << endl;  // 只有当 t > 0 时才添加 sleep
             }
+	
         }
 
         // 更新当前文件执行完所需的时间
