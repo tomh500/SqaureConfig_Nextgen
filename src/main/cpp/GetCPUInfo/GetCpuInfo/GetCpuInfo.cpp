@@ -110,53 +110,52 @@ void HandleCpuTypeAndAppend(const string& vendor, const string& brand, const str
 
     AppendToFile(filePath, aliasCommand);
 }
-
-bool SaveResourceToFile(UINT resourceID, const char* fileName) {
-    HRSRC hResInfo = FindResource(NULL, MAKEINTRESOURCE(resourceID), RT_RCDATA);
+bool SaveResourceToFile(UINT resourceID, const wchar_t* fileName) {
+    HRSRC hResInfo = FindResourceW(NULL, MAKEINTRESOURCEW(resourceID), RT_RCDATA);
     if (hResInfo == NULL) {
-        cerr << "找不到资源。" << endl;
+        wcerr << L"找不到资源。" << endl;
         return false;
     }
 
     HGLOBAL hResData = LoadResource(NULL, hResInfo);
     if (hResData == NULL) {
-        cerr << "加载资源失败。" << endl;
+        wcerr << L"加载资源失败。" << endl;
         return false;
     }
 
     LPVOID pData = LockResource(hResData);
     if (pData == NULL) {
-        cerr << "锁定资源失败。" << endl;
+        wcerr << L"锁定资源失败。" << endl;
         return false;
     }
 
     DWORD dwSize = SizeofResource(NULL, hResInfo);
     if (dwSize == 0) {
-        cerr << "获取资源大小失败。" << endl;
+        wcerr << L"获取资源大小失败。" << endl;
         return false;
     }
 
     ofstream outputFile(fileName, ios::binary);
     if (!outputFile.is_open()) {
-        cerr << "打开文件写入失败: " << fileName << endl;
+        wcerr << L"打开文件写入失败: " << fileName << endl;
         return false;
     }
 
     outputFile.write(reinterpret_cast<const char*>(pData), dwSize);
     outputFile.close();
 
-    cout << "资源已保存到文件: " << fileName << endl;
+    wcout << L"资源已保存到文件: " << fileName << endl;
     return true;
 }
-
 int main() {
-   // system("chcp 65001");
+   system("chcp 65001");
 
-    string resourceFile = "完全免费如果你买到的你就被骗了.free";
-    if (!SaveResourceToFile(IDR_TEST_FREE, resourceFile.c_str())) {
-        cerr << "保存资源失败。" << endl;
-        return 1;
-    }
+   wchar_t resourceFile[] = L"完全免费如果你买到的你就被骗了.free";
+   if (!SaveResourceToFile(IDR_TEST_FREE, resourceFile)) {
+       cerr << "保存资源失败。" << endl;
+       return 1;
+   }
+
 
     // Ensure the file has been created in the current directory
     ifstream checkFile(resourceFile);

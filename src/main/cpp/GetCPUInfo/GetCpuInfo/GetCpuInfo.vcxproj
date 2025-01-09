@@ -120,8 +120,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalOptions>
-      </AdditionalOptions>
+      <AdditionalOptions>/utf-8</AdditionalOptions>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
