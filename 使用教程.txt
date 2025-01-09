@@ -5,6 +5,10 @@
 保存完毕后将整个项目文件夹复制到你的CS2 CFG文件夹 并更名为Sqaure
 添加启动项 +exec Sqaure/Setup 或者在Autoexec.cfg内填写 exec Sqaure/setup 即可
 
+Alpha-1.1.2更新日志
+[+]修复了6ms分支ticker未定义的问题
+[+]修复了鼠标无法在y轴运动的问题
+
 Alpha-1.1.1更新日志
 [+]修复了W跳投不生效的问题
 [+]为自动连跳添加了B方案
