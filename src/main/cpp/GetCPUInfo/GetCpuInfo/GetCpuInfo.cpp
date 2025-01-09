@@ -4,10 +4,62 @@
 #include <string>
 #include <intrin.h>
 #include <algorithm>
+#include <thread>  // 添加多线程支持
 #include "resource.h"
+#define SDL_MAIN_HANDLED
+#include <SDL.h>
+#include <SDL_mixer.h>
 
 using namespace std;
 
+// 初始化SDL2和SDL_mixer
+bool InitSDL() {
+    if (SDL_Init(SDL_INIT_AUDIO) < 0) {
+        cerr << "SDL 初始化失败: " << SDL_GetError() << endl;
+        return false;
+    }
+
+    if (Mix_Init(MIX_INIT_MP3) != MIX_INIT_MP3) {
+        cerr << "SDL_mixer 初始化失败: " << Mix_GetError() << endl;
+        SDL_Quit();
+        return false;
+    }
+
+    if (Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 1024) < 0) {
+        cerr << "音频设备打开失败: " << Mix_GetError() << endl;
+        Mix_Quit();
+        SDL_Quit();
+        return false;
+    }
+
+    return true;
+}
+
+// 播放MP3文件
+void PlayMP3(const char* fileName) {
+    Mix_Music* music = Mix_LoadMUS(fileName);
+    if (music == nullptr) {
+        return;
+    }
+    if (Mix_PlayMusic(music, 1) == -1) {
+        Mix_FreeMusic(music);
+        return;
+    }
+
+    while (Mix_PlayingMusic()) {
+        SDL_Delay(100); 
+    }
+    Mix_FreeMusic(music);
+}
+
+// 退出清理SDL
+void QuitSDL() {
+    Mix_CloseAudio();
+    Mix_Quit();
+    SDL_Quit();
+}
+
+// 获取CPU品牌
 string GetCpuBrand() {
     int cpuInfo[4] = { 0 };
     char brand[0x40] = { 0 };
@@ -22,6 +74,7 @@ string GetCpuBrand() {
     return string(brand);
 }
 
+// 获取CPU信息
 void GetCPUInfo() {
     int cpuInfo[4] = { 0 };
     char cpuVendor[13] = { 0 };
@@ -38,6 +91,7 @@ void GetCPUInfo() {
     cout << "CPU 型号: " << brand << endl;
 }
 
+// 设置背景颜色
 void SetBackgroundColor(const string& vendor) {
     if (vendor == "GenuineIntel") {
         system("color CE");
@@ -50,6 +104,7 @@ void SetBackgroundColor(const string& vendor) {
     }
 }
 
+// 检查文件中是否已存在某个别名
 bool CheckForExistingAlias(const string& filePath) {
     ifstream file(filePath);
     string line;
@@ -61,6 +116,7 @@ bool CheckForExistingAlias(const string& filePath) {
     return false;
 }
 
+// 将内容追加到文件中
 void AppendToFile(const string& filePath, const string& content) {
     ofstream file(filePath, ios::app);
     if (file.is_open()) {
@@ -72,6 +128,7 @@ void AppendToFile(const string& filePath, const string& content) {
     }
 }
 
+// 处理CPU类型并追加配置
 void HandleCpuTypeAndAppend(const string& vendor, const string& brand, const string& filePath, string& fps) {
     if (CheckForExistingAlias(filePath)) {
        cout << "文件中已存在 Sqaure_Fps_Default 命令. 未做任何更改." << endl;
@@ -111,6 +168,7 @@ void HandleCpuTypeAndAppend(const string& vendor, const string& brand, const str
     AppendToFile(filePath, aliasCommand);
 }
 
+
 bool SaveResourceToFile(UINT resourceID, const char* fileName) {
     HRSRC hResInfo = FindResource(NULL, MAKEINTRESOURCE(resourceID), RT_RCDATA);
     if (hResInfo == NULL) {
@@ -148,57 +206,84 @@ bool SaveResourceToFile(UINT resourceID, const char* fileName) {
     cout << "资源已保存到文件: " << fileName << endl;
     return true;
 }
-
-int main() {
-   // system("chcp 65001");
-
-    string resourceFile = "完全免费如果你买到的你就被骗了.free";
-    if (!SaveResourceToFile(IDR_TEST_FREE, resourceFile.c_str())) {
-        cerr << "保存资源失败。" << endl;
-        return 1;
+bool DeleteFileInCurrentDirectory(const std::string& filename) {
+    char currentDir[MAX_PATH];
+    if (!GetCurrentDirectoryA(MAX_PATH, currentDir)) {
+        return false;
     }
+    std::string filePath = std::string(currentDir) + "\\" + filename;
 
-    // Ensure the file has been created in the current directory
-    ifstream checkFile(resourceFile);
-    if (checkFile.good()) {
- 
-        MessageBox(NULL, L"文件已成功保存到运行目录。", L"成功", MB_ICONINFORMATION);
+    if (DeleteFileA(filePath.c_str())) {
+        return true;
     }
     else {
-        MessageBox(NULL, L"文件保存失败，未能创建文件。", L"错误", MB_ICONERROR);
+        return false;
+    }
+}
+
+
+
+int main() {
+
+
+    if (!InitSDL()) {
+        return -1;
     }
 
-    system("cls");
-    GetCPUInfo();
+    if (SaveResourceToFile(IDR_BGM, "temp_bgm.mp3")) {
+        thread musicThread(PlayMP3, "temp_bgm.mp3");
+        string resourceFile = "完全免费如果你买到的你就被骗了.free";
+        Sleep(1000);
+        if (!SaveResourceToFile(IDR_TEST_FREE, resourceFile.c_str())) {
+            cerr << "保存资源失败。" << endl;
+            return 1;
+        }
 
-    char cpuVendor[13] = { 0 };
-    int cpuInfo[4] = { 0 };
-    __cpuid(cpuInfo, 0);
-    memcpy(cpuVendor, &cpuInfo[1], 4);
-    memcpy(cpuVendor + 4, &cpuInfo[3], 4);
-    memcpy(cpuVendor + 8, &cpuInfo[2], 4);
-    string vendor(cpuVendor);
+        // Ensure the file has been created in the current directory
+        ifstream checkFile(resourceFile);
+        if (checkFile.good()) {
+            MessageBox(NULL, L"文件已成功保存到运行目录。", L"成功", MB_ICONINFORMATION);
+        }
+        else {
+            MessageBox(NULL, L"文件保存失败，未能创建文件。", L"错误", MB_ICONERROR);
+        }
 
-    SetBackgroundColor(vendor);
+        system("cls");
+        GetCPUInfo();
 
-    string filePath = "src\\main\\cfg\\cn\\luotiany1\\SqaureNextgen\\Sqaure.cfg";
+        char cpuVendor[13] = { 0 };
+        int cpuInfo[4] = { 0 };
+        __cpuid(cpuInfo, 0);
+        memcpy(cpuVendor, &cpuInfo[1], 4);
+        memcpy(cpuVendor + 4, &cpuInfo[3], 4);
+        memcpy(cpuVendor + 8, &cpuInfo[2], 4);
+        string vendor(cpuVendor);
 
-    string brand = GetCpuBrand();
-    string fps;
-    HandleCpuTypeAndAppend(vendor, brand, filePath, fps);
+        SetBackgroundColor(vendor);
 
+        string filePath = "src\\main\\cfg\\cn\\luotiany1\\SqaureNextgen\\Sqaure.cfg";
 
-    
-    wstring message = L"CPU 厂商: " + wstring(vendor.begin(), vendor.end()) + L"\n" +
-        L"CPU 型号: " + wstring(brand.begin(), brand.end()) + L"\n" +
-        L"因为你的CPU已经为你设定帧率： " + wstring(fps.begin(), fps.end());
+        string brand = GetCpuBrand();
+        string fps;
+        HandleCpuTypeAndAppend(vendor, brand, filePath, fps);
 
-    // 显示弹窗
-    MessageBox(NULL, message.c_str(), L"帧率设置", MB_OK | MB_ICONINFORMATION);
- 
-    Sleep(5000);
+        wstring message = L"CPU 厂商: " + wstring(vendor.begin(), vendor.end()) + L"\n" +
+                          L"CPU 型号: " + wstring(brand.begin(), brand.end()) + L"\n" +
+                          L"因为你的CPU已经为你设定帧率： " + wstring(fps.begin(), fps.end());
 
-    system("color 0F");
+        // 显示弹窗
+        MessageBox(NULL, message.c_str(), L"帧率设置", MB_OK | MB_ICONINFORMATION);
+        Sleep(5000);
+
+        system("color 0F");
+
+        // 等待音乐播放完毕
+        musicThread.join();
+    }
+
+    // 清理SDL
+    QuitSDL();
+    DeleteFileInCurrentDirectory("temp_bgm.mp3");
 
     return 0;
 }
