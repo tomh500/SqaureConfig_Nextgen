@@ -120,8 +120,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalOptions>
-      </AdditionalOptions>
+      <AdditionalOptions>/utf-8</AdditionalOptions>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalIncludeDirectories>D:\SteamLibrary\steamapps\common\Counter-Strike Global Offensive\game\csgo\cfg\Sqaure\src\main\cpp\GetCPUInfo\GetCpuInfo\runtime\SDL2_mixer\include;D:\SteamLibrary\steamapps\common\Counter-Strike Global Offensive\game\csgo\cfg\Sqaure\src\main\cpp\GetCPUInfo\GetCpuInfo\runtime\SDL2\include</AdditionalIncludeDirectories>
     </ClCompile>
