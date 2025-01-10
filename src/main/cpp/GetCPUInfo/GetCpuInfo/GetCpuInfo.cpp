@@ -5,8 +5,120 @@
 #include <intrin.h>
 #include <algorithm>
 #include "resource.h"
-
+#include <Wbemidl.h> 
+#include <atlbase.h>  
+#include <comutil.h> 
+#pragma comment(lib, "comsuppw.lib") 
+#pragma comment(lib, "wbemuuid.lib")
 using namespace std;
+
+#include <Wbemidl.h>  // 用于 WMI 接口
+#pragma comment(lib, "wbemuuid.lib")  // 链接 WMI 库
+
+// 初始化 COM 库和 WMI
+bool InitWMI(IWbemLocator*& pLocator, IWbemServices*& pService) {
+    HRESULT hres;
+
+    // 初始化 COM 库
+    hres = CoInitializeEx(0, COINIT_MULTITHREADED);
+    if (FAILED(hres)) {
+        wcerr << L"COM 初始化失败" << endl;
+        return false;
+    }
+
+    // 设置安全性
+    hres = CoInitializeSecurity(
+        NULL, -1, NULL, NULL, RPC_C_AUTHN_LEVEL_DEFAULT,
+        RPC_C_IMP_LEVEL_IMPERSONATE, NULL, EOAC_NONE, NULL);
+    if (FAILED(hres)) {
+        wcerr << L"安全初始化失败" << endl;
+        CoUninitialize();
+        return false;
+    }
+
+    // 创建 IWbemLocator 对象
+    hres = CoCreateInstance(CLSID_WbemLocator, 0, CLSCTX_INPROC_SERVER, IID_IWbemLocator, (LPVOID*)&pLocator);
+    if (FAILED(hres)) {
+        wcerr << L"创建 IWbemLocator 对象失败" << endl;
+        CoUninitialize();
+        return false;
+    }
+
+    // 连接到 WMI 服务
+    hres = pLocator->ConnectServer(
+        _bstr_t(L"ROOT\\CIMV2"), NULL, NULL, 0, NULL, 0, 0, &pService);
+    if (FAILED(hres)) {
+        wcerr << L"连接到 WMI 服务失败" << endl;
+        pLocator->Release();
+        CoUninitialize();
+        return false;
+    }
+
+    return true;
+}
+
+// 获取 GPU 信息
+wstring GetGPUInfo() {
+    IWbemLocator* pLocator = nullptr;
+    IWbemServices* pService = nullptr;
+
+    if (!InitWMI(pLocator, pService)) {
+        return L"无法获取 GPU 信息";
+    }
+
+    // 查询 GPU 信息
+    IEnumWbemClassObject* pEnumerator = nullptr;
+    HRESULT hres = pService->ExecQuery(
+        bstr_t(L"SELECT * FROM Win32_VideoController"),
+        bstr_t(L"WQL"),
+        WBEM_FLAG_FORWARD_ONLY | WBEM_FLAG_RETURN_IMMEDIATELY,
+        NULL,
+        &pEnumerator);
+
+    if (FAILED(hres)) {
+        wcerr << L"WMI 查询失败" << endl;
+        pLocator->Release();
+        pService->Release();
+        CoUninitialize();
+        return L"无法获取 GPU 信息";
+    }
+
+    // 获取查询结果
+    IWbemClassObject* pclsObj = nullptr;
+    ULONG uReturn = 0;
+    wstring gpuInfo = L"未检测到 GPU";
+
+    while (pEnumerator) {
+        hres = pEnumerator->Next(WBEM_INFINITE, 1, &pclsObj, &uReturn);
+        if (0 == uReturn) {
+            break;
+        }
+
+        // 获取 GPU 名称
+        VARIANT vtProp;
+        hres = pclsObj->Get(L"Caption", 0, &vtProp, 0, 0);
+        if (SUCCEEDED(hres)) {
+            gpuInfo = vtProp.bstrVal;
+        }
+
+        VariantClear(&vtProp);
+        pclsObj->Release();
+    }
+
+    // 如果没有找到 GPU，打印额外调试信息
+    if (gpuInfo == L"未检测到 GPU") {
+        wcerr << L"未能从 WMI 获取 GPU 信息。" << endl;
+    }
+
+    // 清理
+    pEnumerator->Release();
+    pService->Release();
+    pLocator->Release();
+    CoUninitialize();
+
+    return gpuInfo;
+}
+
 
 string GetCpuBrand() {
     int cpuInfo[4] = { 0 };
@@ -110,6 +222,10 @@ void HandleCpuTypeAndAppend(const string& vendor, const string& brand, const str
 
     AppendToFile(filePath, aliasCommand);
 }
+
+
+
+
 bool SaveResourceToFile(UINT resourceID, const wchar_t* fileName) {
     HRSRC hResInfo = FindResourceW(NULL, MAKEINTRESOURCEW(resourceID), RT_RCDATA);
     if (hResInfo == NULL) {
@@ -148,6 +264,7 @@ bool SaveResourceToFile(UINT resourceID, const wchar_t* fileName) {
     return true;
 }
 int main() {
+    system("@echo off");
    system("chcp 65001");
 
    wchar_t resourceFile[] = L"完全免费如果你买到的你就被骗了.free";
@@ -156,7 +273,8 @@ int main() {
        return 1;
    }
 
-
+   system("copy /Y src\\main\\resources\\sounds\\disable_a.vsnd_c  ..\\..\\sounds");
+   system("copy /Y src\\main\\resources\\sounds\\enable_a.vsnd_c  ..\\..\\sounds");
     // Ensure the file has been created in the current directory
     ifstream checkFile(resourceFile);
     if (checkFile.good()) {
@@ -186,14 +304,19 @@ int main() {
     string fps;
     HandleCpuTypeAndAppend(vendor, brand, filePath, fps);
 
-
-    
+  
     wstring message = L"CPU 厂商: " + wstring(vendor.begin(), vendor.end()) + L"\n" +
         L"CPU 型号: " + wstring(brand.begin(), brand.end()) + L"\n" +
         L"因为你的CPU已经为你设定帧率： " + wstring(fps.begin(), fps.end());
-
-    // 显示弹窗
     MessageBox(NULL, message.c_str(), L"帧率设置", MB_OK | MB_ICONINFORMATION);
+
+
+    wstring gpuInfo = GetGPUInfo();  
+    wstring messageG = L"检测到 GPU: " + gpuInfo;
+    MessageBox(NULL, messageG.c_str(), L"GPU 信息", MB_OK | MB_ICONINFORMATION);
+
+
+
  
     Sleep(5000);
 

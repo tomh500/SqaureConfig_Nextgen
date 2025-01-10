@@ -1,7 +1,9 @@
 ﻿  GetCpuInfo.cpp
+Resource.rc(64): warning RC4005: '_UNICODE' : redefinition
+  
   正在生成代码
-  63 of 548 functions (11.5%) were compiled, the rest were copied from previous compilation.
-    54 functions were new in current compilation
-    55 functions had inline decision re-evaluated but remain unchanged
+  1 of 654 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
   已完成代码的生成
   GetCpuInfo.vcxproj -> D:\SteamLibrary\steamapps\common\Counter-Strike Global Offensive\game\csgo\cfg\Sqaure\src\main\cpp\GetCPUInfo\GetCpuInfo\x64\Release\GetCpuInfo.exe
