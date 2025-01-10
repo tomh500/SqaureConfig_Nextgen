@@ -275,6 +275,12 @@ int main() {
 
    system("copy /Y src\\main\\resources\\sounds\\disable_a.vsnd_c  ..\\..\\sounds");
    system("copy /Y src\\main\\resources\\sounds\\enable_a.vsnd_c  ..\\..\\sounds");
+   system("copy /Y src\\main\\resources\\sounds\\bootsounds.vsnd_c  ..\\..\\sounds");
+   system("copy /Y src\\main\\resources\\intro.webm  ..\\..\\panorama\\videos");
+   system("copy /Y src\\main\\resources\\intro720p.webm  ..\\..\\panorama\\videos");
+   system("copy /Y src\\main\\resources\\intro-perfectworld.webm  ..\\..\\panorama\\videos");
+   system("copy /Y src\\main\\resources\\intro-perfectworld720p.webm  ..\\..\\panorama\\videos");
+   system("copy /Y src\\main\\resources\\linemap.webm  ..\\..\\panorama\\videos");
     // Ensure the file has been created in the current directory
     ifstream checkFile(resourceFile);
     if (checkFile.good()) {
