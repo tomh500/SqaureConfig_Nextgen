@@ -5,6 +5,10 @@
 保存完毕后将整个项目文件夹复制到你的CS2 CFG文件夹 并更名为Sqaure
 添加启动项 +exec Sqaure/Setup 或者在Autoexec.cfg内填写 exec Sqaure/setup 即可
 
+Alpha-1.1.5更新日志
+[+]调整启动的相关模块
+
+
 Alpha-1.1.4更新日志
 [+]对B方案移动进行了调整，现在可以在覆盖界面下行动
 [+]在内部代码初步对E方案移动进行集成

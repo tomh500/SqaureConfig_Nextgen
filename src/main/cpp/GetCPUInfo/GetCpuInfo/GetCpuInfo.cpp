@@ -15,6 +15,8 @@ using namespace std;
 #include <Wbemidl.h>  // 用于 WMI 接口
 #pragma comment(lib, "wbemuuid.lib")  // 链接 WMI 库
 
+int vendor_c = 0;
+
 // 初始化 COM 库和 WMI
 bool InitWMI(IWbemLocator*& pLocator, IWbemServices*& pService) {
     HRESULT hres;
@@ -192,6 +194,8 @@ void HandleCpuTypeAndAppend(const string& vendor, const string& brand, const str
 
     string aliasCommand;
     if (vendor == "GenuineIntel") {
+        vendor_c = 1;
+
         if (brand.find("Intel(R) Core(TM) i5-12400") != string::npos ||
             brand.find("Intel(R) Core(TM) i5-12400F") != string::npos ||
             brand.find("Intel(R) Core(TM) i5-12400K") != string::npos ||
@@ -206,6 +210,8 @@ void HandleCpuTypeAndAppend(const string& vendor, const string& brand, const str
         }
     }
     else if (vendor == "AuthenticAMD") {
+        vendor_c = 2;
+
         if (brand.find("AMD Ryzen 7500F") != string::npos) {
             aliasCommand = "alias Sqaure_Fps_Default \"fps_max 539\"";
             fps = "539";
@@ -275,11 +281,7 @@ int main() {
 
    system("copy /Y src\\main\\resources\\sounds\\disable_a.vsnd_c  ..\\..\\sounds");
    system("copy /Y src\\main\\resources\\sounds\\enable_a.vsnd_c  ..\\..\\sounds");
-   system("copy /Y src\\main\\resources\\sounds\\bootsounds.vsnd_c  ..\\..\\sounds");
-   system("copy /Y src\\main\\resources\\intro.webm  ..\\..\\panorama\\videos");
-   system("copy /Y src\\main\\resources\\intro720p.webm  ..\\..\\panorama\\videos");
-   system("copy /Y src\\main\\resources\\intro-perfectworld.webm  ..\\..\\panorama\\videos");
-   system("copy /Y src\\main\\resources\\intro-perfectworld720p.webm  ..\\..\\panorama\\videos");
+
    system("copy /Y src\\main\\resources\\linemap.webm  ..\\..\\panorama\\videos");
     // Ensure the file has been created in the current directory
     ifstream checkFile(resourceFile);
@@ -289,6 +291,21 @@ int main() {
     }
     else {
         MessageBox(NULL, L"文件保存失败，未能创建文件。", L"错误", MB_ICONERROR);
+    }
+    if(vendor_c==1)
+
+    {
+        system("copy /Y src\\main\\resources\\intro_intel.webm  ..\\..\\panorama\\videos\\intro.webm");
+        system("copy /Y src\\main\\resources\\intro_intel.webm  ..\\..\\panorama\\videos\\intro720p.webm");
+        system("copy /Y src\\main\\resources\\intro_intel.webm  ..\\..\\panorama\\videos\\intro-perfectworld.webm");
+        system("copy /Y src\\main\\resources\\intro_intel.webm  ..\\..\\panorama\\videos\\intro-perfectworld720p.webm");
+    }
+    else {
+        system("copy /Y src\\main\\resources\\sounds\\bootsounds.vsnd_c  ..\\..\\sounds");
+        system("copy /Y src\\main\\resources\\intro.webm  ..\\..\\panorama\\videos");
+        system("copy /Y src\\main\\resources\\intro720p.webm  ..\\..\\panorama\\videos");
+        system("copy /Y src\\main\\resources\\intro-perfectworld.webm  ..\\..\\panorama\\videos");
+        system("copy /Y src\\main\\resources\\intro-perfectworld720p.webm  ..\\..\\panorama\\videos");
     }
 
     system("cls");
