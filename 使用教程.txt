@@ -1,9 +1,25 @@
-//SqaureNextgen Alpha 1.1.3 key=null
+//SqaureNextgen Alpha 1.1.6 key=null
 
+在提问之前，请确保你已经完整阅读此教程并正确配置你的CFG，并附带上“我已完整仔细阅读使用教程和配置文件”等字样，否则你的提问将会被忽略，本CFG完全免费公开
 运行OpenConfigSetting ， 程序会打开配置文件 ，如果无法打开，可以运行 OpenConfigSettingFolder 手动配置CFG 你需要在里面按照你的喜好进行设置，请【不要】修改FPS档位 它和你的实际FPS无关 修改后将无法使用！
 如果你是第一次使用本CFG 配置完毕后运行GetCpuInfo 否则游戏将无法启动！
-保存完毕后将整个项目文件夹复制到你的CS2 CFG文件夹 并更名为Sqaure
-添加启动项 +exec Sqaure/Setup 或者在Autoexec.cfg内填写 exec Sqaure/setup 即可
+保存完毕后将整个项目文件夹复制到你的CS2 CFG文件夹 并更名为Sqaure，请注意，Sqaure文件夹为根目录，你应该得到如下...\game\csgo\cfg\Sqaure\使用教程.txt
+添加启动项 +exec Sqaure/Setup 或者在autoexec.cfg内填写 exec Sqaure/setup 即可
+本CFG暂时与其他CFG不兼容，请谨慎使用其他CFG，在装载本CFG之前，请确保你已经删除其他第三方CFG并重置游戏按键等
+
+Alpha-1.1.6更新日志
+[+]修复了B方案移动方式无法第三轮盘覆盖下进行移动
+[+]对B方案移动进行了调整，现在可以在计分板、放射性武器菜单页面覆盖下进行移动
+[+]内部代码对E方案移动进行了集成
+[+]初步支持武器检测
+[+]切换到左轮手枪将关闭自动手枪模块
+[+]完全支持了移动Desubtick
+[+]调整了模块开关提示音量
+[+]模块开关提示更变为可拆卸模组
+[+]调整启动的相关模块
+[+]调整CFG使用教程
+[+]修复了一些已知问题
+
 
 Alpha-1.1.5更新日志
 [+]调整启动的相关模块
