@@ -1,6 +1,6 @@
 <div align="right">
 
-**简体中文** | [繁体中文](./README.zh-TW.md) | [English](./github/README.en_US.md)
+**简体中文** | [繁体中文](./README.zh-TW.md) | [English](./README.en_US.md)
 
 </div>
 
