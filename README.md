@@ -13,7 +13,7 @@
         <img alt="CS2 Visual Studio Code 高亮扩展" src="https://img.shields.io/badge/CS2%20VSCode%20%E9%AB%98%E4%BA%AE%E6%93%B4%E5%B1%95-blue?style=for-the-badge&logo=github">
     </a>
     <a href="https://github.com/tomh500/SqaureConfig_Nextgen">
-        <img alt="Sqaure下一代" src="https://img.shields.io/badge/CS2%20Konc%20CFG-green?style=for-the-badge&logo=github">
+        <img alt="Sqaure下一代" src="https://img.shields.io/badge/Sqaure%20Nextgen%20Config-green?style=for-the-badge&logo=github">
     </a>
 </p>
 
