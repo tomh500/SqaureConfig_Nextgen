@@ -164,15 +164,25 @@ void SetBackgroundColor(const string& vendor) {
     }
 }
 
-bool CheckForExistingAlias(const string& filePath) {
+bool CheckForExistingAlias(const string& filePath, string& aliasCommand) {
     ifstream file(filePath);
     string line;
+    bool aliasFound = false;
+
     while (getline(file, line)) {
+        // 检查是否存在类似的别名命令
         if (line.find("alias Sqaure_Fps_Default") != string::npos) {
-            return true;
+            aliasFound = true;
+            // 解析命令并检查是否与当前CPU型号的命令匹配
+            size_t fpsPos = line.find("fps_max");
+            if (fpsPos != string::npos) {
+                aliasCommand = line.substr(fpsPos);  // 获取fps_max的值
+            }
+            break;
         }
     }
-    return false;
+
+    return aliasFound;
 }
 
 void AppendToFile(const string& filePath, const string& content) {
@@ -187,12 +197,7 @@ void AppendToFile(const string& filePath, const string& content) {
 }
 
 void HandleCpuTypeAndAppend(const string& vendor, const string& brand, const string& filePath, string& fps) {
-    if (CheckForExistingAlias(filePath)) {
-       cout << "文件中已存在 Sqaure_Fps_Default 命令. 未做任何更改." << endl;
-        return;
-    }
-
-    string aliasCommand;
+    string newAliasCommand;
     if (vendor == "GenuineIntel") {
         vendor_c = 1;
 
@@ -201,11 +206,11 @@ void HandleCpuTypeAndAppend(const string& vendor, const string& brand, const str
             brand.find("Intel(R) Core(TM) i5-12400K") != string::npos ||
             brand.find("Intel(R) Core(TM) i5-12400KF") != string::npos ||
             brand.find("Intel(R) Core(TM) i5-12600") != string::npos) {
-            aliasCommand = "alias Sqaure_Fps_Default \"fps_max 239\"";
+            newAliasCommand = "alias Sqaure_Fps_Default \"fps_max 239\"";
             fps = "164";
         }
         else {
-            aliasCommand = "alias Sqaure_Fps_Default \"fps_max 539\"";
+            newAliasCommand = "alias Sqaure_Fps_Default \"fps_max 539\"";
             fps = "239";
         }
     }
@@ -213,11 +218,11 @@ void HandleCpuTypeAndAppend(const string& vendor, const string& brand, const str
         vendor_c = 2;
 
         if (brand.find("AMD Ryzen 7500F") != string::npos) {
-            aliasCommand = "alias Sqaure_Fps_Default \"fps_max 539\"";
+            newAliasCommand = "alias Sqaure_Fps_Default \"fps_max 539\"";
             fps = "539";
         }
         else {
-            aliasCommand = "alias Sqaure_Fps_Default \"fps_max 1009\"";
+            newAliasCommand = "alias Sqaure_Fps_Default \"fps_max 1009\"";
             fps = "1009";
         }
     }
@@ -226,10 +231,51 @@ void HandleCpuTypeAndAppend(const string& vendor, const string& brand, const str
         exit(1);
     }
 
-    AppendToFile(filePath, aliasCommand);
+    string currentAliasCommand;
+    if (CheckForExistingAlias(filePath, currentAliasCommand)) {
+        // 如果当前命令与新命令不同，则删除旧命令并追加新的命令
+        if (currentAliasCommand != newAliasCommand) {
+            cout << "配置文件中已存在别名命令，但与检测到的CPU信息不一致。正在更新..." << endl;
+
+            // 读取配置文件并删除旧的命令
+            ifstream inputFile(filePath);
+            ofstream tempFile("temp.cfg");
+
+            string line;
+            bool commandDeleted = false;
+
+            while (getline(inputFile, line)) {
+                if (line.find("alias Sqaure_Fps_Default") != string::npos) {
+                    // 删除现有的命令
+                    commandDeleted = true;
+                }
+                else {
+                    // 写入其他行
+                    tempFile << line << endl;
+                }
+            }
+
+            // 将新的命令追加到文件末尾
+            if (commandDeleted) {
+                tempFile << newAliasCommand << endl;
+            }
+
+            inputFile.close();
+            tempFile.close();
+
+            // 替换原文件
+            remove(filePath.c_str());
+            rename("temp.cfg", filePath.c_str());
+        }
+        else {
+            cout << "配置文件中的命令与检测到的CPU型号一致，未做更改。" << endl;
+        }
+    }
+    else {
+        // 如果没有找到命令，则直接追加新命令
+        AppendToFile(filePath, newAliasCommand);
+    }
 }
-
-
 
 
 bool SaveResourceToFile(UINT resourceID, const wchar_t* fileName) {
