@@ -66,7 +66,7 @@
 exec Sqaure/setup
 ```
 
-## 🗑️ 卸載CFG
+## 🗑️ 解除安装CFG
 ```
 bind mouse_x yaw;bind mouse_y pitch;unbindall;binddefaults;binddefaults;joy_response_move 1;joy_side_sensitivity 1.000000;joy_forward_sensitivity 1.000000;cl_scoreboard_mouse_enable_binding +attack2;cl_quickinventory_filename radial_quickinventory.txt;host_writeconfig
 ```
