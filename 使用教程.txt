@@ -1,4 +1,4 @@
-//SqaureNextgen Alpha 1.1.9 key=null
+//SqaureNextgen Alpha 1.1.10 key=null
 
 在提问之前，请确保你已经完整阅读此教程并正确配置你的CFG，并附带上“我已完整仔细阅读使用教程和配置文件”等字样，否则你的提问将会被忽略，本CFG完全免费公开
 运行OpenConfigSetting ， 程序会打开配置文件 ，如果无法打开，可以运行 OpenConfigSettingFolder 手动配置CFG 你需要在里面按照你的喜好进行设置，请【不要】修改FPS档位 它和你的实际FPS无关 修改后将无法使用！
@@ -7,7 +7,7 @@
 添加启动项 +exec Sqaure/Setup 或者在autoexec.cfg内填写 exec Sqaure/setup 即可
 本CFG暂时与其他CFG不兼容，请谨慎使用其他CFG，在装载本CFG之前，请确保你已经删除其他第三方CFG并重置游戏按键等
 
-Alpha-1.1.9更新日志
+Alpha-1.1.10更新日志
 [+]添加大跳绑定
 [+]修复了一些已知问题
 
