@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -70,6 +70,10 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>D:\SteamLibrary\steamapps\common\Counter-Strike Global Offensive\game\csgo\cfg\Sqaure\src\main\cpp\GetCPUInfo\GetCpuInfo\runtime\SDL2\include;D:\SteamLibrary\steamapps\common\Counter-Strike Global Offensive\game\csgo\cfg\Sqaure\src\main\cpp\GetCPUInfo\GetCpuInfo\runtime\SDL2_mixer\include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\SteamLibrary\steamapps\common\Counter-Strike Global Offensive\game\csgo\cfg\Sqaure\src\main\cpp\GetCPUInfo\GetCpuInfo\runtime\SDL2_mixer\lib\x64;D:\SteamLibrary\steamapps\common\Counter-Strike Global Offensive\game\csgo\cfg\Sqaure\src\main\cpp\GetCPUInfo\GetCpuInfo\runtime\SDL2\lib\x64;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -122,18 +126,22 @@
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <AdditionalOptions>/utf-8</AdditionalOptions>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>D:\SteamLibrary\steamapps\common\Counter-Strike Global Offensive\game\csgo\cfg\Sqaure\src\main\cpp\GetCPUInfo\GetCpuInfo\runtime\SDL2_mixer\include;D:\SteamLibrary\steamapps\common\Counter-Strike Global Offensive\game\csgo\cfg\Sqaure\src\main\cpp\GetCPUInfo\GetCpuInfo\runtime\SDL2\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>D:\SteamLibrary\steamapps\common\Counter-Strike Global Offensive\game\csgo\cfg\Sqaure\src\main\cpp\GetCPUInfo\GetCpuInfo\runtime\SDL2\lib\x64;D:\SteamLibrary\steamapps\common\Counter-Strike Global Offensive\game\csgo\cfg\Sqaure\src\main\cpp\GetCPUInfo\GetCpuInfo\runtime\SDL2_mixer\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2_mixer.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="GetCpuInfo.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="rcdata1.bin" />
     <None Include="完全免费如果你买到的你就被骗了.free" />
   </ItemGroup>
   <ItemGroup>
@@ -141,6 +149,9 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Resource.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="gq.mp3" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

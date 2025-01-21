@@ -1,46 +1,31 @@
 "Tokens"
 {
-    // PWA Vote
-	"SFUI_Vote_TeamDamage_PWA"                    "是否启用队友伤害？"
-	"SFUI_Vote_TeamDamage_Passed_PWA"             "投票通过！<font color='#FF0000'>开启队友伤害</font>"
-	
-	"SFUI_Vote_KnifeRound_PWA"                    "是否启用拼刀选边？"
-	"SFUI_OP"                    "玩原神玩的"
-	"SFUI_Vote_KnifeRound_Passed_PWA"             "投票通过！<font color='#00FF00'>开启拼刀选边</font>"
-	
-	"SFUI_Vote_SwapCamp_PWA"                    "是否与对手交换阵营？"
-	"SFUI_Vote_SwapCamp_Passed_PWA"             "投票通过！<font color='#00FF00'>进行阵营交换</font>"
-	
-	"SFUI_Vote_OverTime_PWA"                    "是否进行加时赛？"
-	"SFUI_Vote_OverTime_Passed_PWA"             "投票通过！<font color='#00FF00'>开启加时赛</font>"
-	
-	"SFUI_Vote_Unpause_PWA"                    "是否解除暂停？"
-	"SFUI_Vote_Unpause_Passed_PWA"             "投票通过！<font color='#00FF00'>解除暂停</font>"
-	
-	"SFUI_Vote_Surrender_PWA"                    "是否投降？<br>（<font color='#00FF00'>需要全队玩家同意</font>）"
-	"SFUI_Vote_Surrender_Passed_PWA"             "投票通过！<font color='#00FF00'>你方已投降</font>"
+	"CFG_MAP_Dust2"											"炙热沙城Ⅱ\n \n \n \n"
+	"CFG_MAP_Mirage"										"荒漠迷城\n \n \n \n"
+	"CFG_MAP_Inferno"										"炼狱小镇\n \n \n \n"
+	"CFG_MAP_Ancient"										"远古遗迹\n \n \n \n"
+	"CFG_MAP_Vertigo"										"殒命大厦\n \n \n \n"
+	"CFG_MAP_Nuke"											"核子危机\n \n \n \n"
+	"CFG_MAP_Anubis"										"阿努比斯\n \n \n \n"
 
-	"CFG_MAP_Dust2"                    "炙热沙城Ⅱ\n \n \n \n"
-	"CFG_MAP_Mirage"                    "荒漠迷城\n \n \n \n"
-	"CFG_MAP_Inferno"                    "炼狱小镇\n \n \n \n"
-	"CFG_MAP_Ancient"                    "远古遗迹\n \n \n \n"
-	"CFG_MAP_Vertigo"                    "殒命大厦\n \n \n \n"
-	"CFG_MAP_Nuke"                    "核子危机\n \n \n \n"
-	"CFG_MAP_Anubis"                    "阿努比斯\n \n \n \n"
+	"CFG_TEAM_CT"											"CT方 道具\n 反恐精英\n \n \n"
+	"CFG_TEAM_T"											"T方 道具\n 恐怖分子\n \n \n"
 
-	"CFG_TEAM_CT"                    "CT方 道具\n 反恐精英\n \n \n"
-	"CFG_TEAM_T"                    "T方 道具\n 恐怖分子\n \n \n"
+	"CFG_Function_LstMenu"									"返回上层菜单\n \n \n \n"
+	"CFG_Function_IsLstMenu"								"已是第一级菜单\n \n \n \n"
+	"CFG_Function_PrePage"									"上一页\n \n \n \n"
+	"CFG_Function_NxtPage"									"下一页\n \n \n \n"
+	"CFG_Function_WheelPrePage"								"向上滚轮\n切换上一页 \n \n \n"
+	"CFG_Function_WheelNxtPage"								"向下滚轮\n切换下一页 \n \n \n"
+	"CFG_Function_IsPrePage"								"已是第一页\n \n \n \n"
+	"CFG_Function_IsNxtPage"								"已是最后一页\n \n \n \n"
+	
 
-	"CFG_Function_LstMenu"                    "返回上层菜单\n \n \n \n"
-	"CFG_Function_IsLstMenu"                    "已是第一级菜单\n \n \n \n"
-	"CFG_Function_PrePage"                    "上一页\n \n \n \n"
-	"CFG_Function_NxtPage"                    "下一页\n \n \n \n"
-	"CFG_Function_WheelPrePage"                    "向下滚轮\n切换上一页 \n \n \n"
-	"CFG_Function_WheelNxtPage"                    "向上滚轮\n切换下一页 \n \n \n"
-	"CFG_Function_IsPrePage"                    "已是第一页\n \n \n \n"
-	"CFG_Function_IsNxtPage"                    "已是最后一页\n \n \n \n"
-	
-	"SQ_TEXT_NOCLIP"		"飞天遁地\n \n \n \n"
-	"SQ_TEXT_NOCLIP"		"添加机器人\n \n \n \n
-	
+	"Ignore_Broadcast_Messages"								"Sqaure Alpha公测 1.1.7 免费 安全 无毒 开源"
+	"Ignore_Broadcast_Team_Messages"							"官方网站https://sqaure.luotiany1.cn "
+	"Accept_All_Messages"									"此‎消‎息‎仅‎自‎己‎可‎见 | 第‎一‎回‎合‎结‎束‎后‎此‎消‎息‎消‎失"
+
+
+
+
 }

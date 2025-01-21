@@ -1,0 +1,36 @@
+DEFINEPATH Horizon/src/modules/scheduler/stuff/bhop
+
+BEEP
+SLEEP 0
+SETBEGIN
+    SRC +jump;-jump
+    SRC -forward
+    
+SLEEPTICK 48
+SETBEGIN
+    SRC +jump;-jump
+    BEEP
+SLEEPTICK 40
+SETBEGIN
+    SRC +duck
+SLEEPTICK 1
+SETBEGIN
+    SRC -duck
+    SRC +jump;-jump
+    BEEP
+    
+SLEEPTICK 47
+SETBEGIN
+    SRC +duck
+SLEEPTICK 1
+SETBEGIN
+    SRC -duck
+    SRC +jump;-jump
+    BEEP
+SLEEPTICK 48
+SETBEGIN
+    SRC +jump;-jump
+    BEEP
+
+DONT REBUILD!
+END

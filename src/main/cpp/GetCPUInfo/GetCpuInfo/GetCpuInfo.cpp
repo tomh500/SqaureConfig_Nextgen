@@ -7,7 +7,12 @@
 #include "resource.h"
 #include <Wbemidl.h> 
 #include <atlbase.h>  
+#include <thread>
 #include <comutil.h> 
+#define SDL_MAIN_HANDLED
+#include <SDL.h>
+#include <SDL_mixer.h>
+
 #pragma comment(lib, "comsuppw.lib") 
 #pragma comment(lib, "wbemuuid.lib")
 using namespace std;
@@ -17,6 +22,75 @@ using namespace std;
 
 int vendor_c = 0;
 
+// 初始化SDL2和SDL_mixer
+bool InitSDL() {
+    if (SDL_Init(SDL_INIT_AUDIO) < 0) {
+        cerr << "SDL 初始化失败: " << SDL_GetError() << endl;
+        return false;
+    }
+
+    if (Mix_Init(MIX_INIT_MP3) != MIX_INIT_MP3) {
+        cerr << "SDL_mixer 初始化失败: " << Mix_GetError() << endl;
+        SDL_Quit();
+        return false;
+    }
+
+    if (Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 1024) < 0) {
+        cerr << "音频设备打开失败: " << Mix_GetError() << endl;
+        Mix_Quit();
+        SDL_Quit();
+        return false;
+    }
+
+    return true;
+}
+
+// 获取系统的国家/地区信息
+int GetRegionCode() {
+    char region[256];
+
+    // 获取当前用户的地区设置
+    int len = GetLocaleInfoA(LOCALE_USER_DEFAULT, LOCALE_SISO3166CTRYNAME, region, sizeof(region));
+
+    if (len > 0) {
+        string regionStr(region);
+        if (regionStr == "CN") {
+            return 1; // 中国大陆
+        }
+        else if (regionStr == "TW") {
+            return 2; // 台湾
+        }
+        else if (regionStr == "HK") {
+            return 3; // 香港特别行政区
+        }
+    }
+
+    return 0; // 默认，未知地区
+}
+
+
+
+
+// 播放MP3文件
+void PlayMP3(const char* fileName) {
+    Mix_Music* music = Mix_LoadMUS(fileName);
+    if (music == nullptr) {
+        cerr << "加载音乐文件失败: " << Mix_GetError() << endl;
+        return;
+    }
+    if (Mix_PlayMusic(music, 1) == -1) {
+        cerr << "播放音乐失败: " << Mix_GetError() << endl;
+        Mix_FreeMusic(music);
+        return;
+    }
+
+    // 等待音乐播放完毕
+    while (Mix_PlayingMusic()) {
+        SDL_Delay(100);  // 延时100ms
+    }
+    Mix_FreeMusic(music);
+}
+
 // 初始化 COM 库和 WMI
 bool InitWMI(IWbemLocator*& pLocator, IWbemServices*& pService) {
     HRESULT hres;
@@ -24,7 +98,7 @@ bool InitWMI(IWbemLocator*& pLocator, IWbemServices*& pService) {
     // 初始化 COM 库
     hres = CoInitializeEx(0, COINIT_MULTITHREADED);
     if (FAILED(hres)) {
-        wcerr << L"COM 初始化失败" << endl;
+        wcout << L"COM 初始化失败" << endl;
         return false;
     }
 
@@ -86,7 +160,7 @@ wstring GetGPUInfo() {
     }
 
     // 获取查询结果
-    IWbemClassObject* pclsObj = nullptr;
+  IWbemClassObject* pclsObj = nullptr;
     ULONG uReturn = 0;
     wstring gpuInfo = L"未检测到 GPU";
 
@@ -119,6 +193,20 @@ wstring GetGPUInfo() {
     CoUninitialize();
 
     return gpuInfo;
+}
+bool DeleteFileInCurrentDirectory(const std::string& filename) {
+    char currentDir[MAX_PATH];
+    if (!GetCurrentDirectoryA(MAX_PATH, currentDir)) {
+        return false;
+    }
+    std::string filePath = std::string(currentDir) + "\\" + filename;
+
+    if (DeleteFileA(filePath.c_str())) {
+        return true;
+    }
+    else {
+        return false;
+    }
 }
 
 
@@ -201,17 +289,18 @@ void HandleCpuTypeAndAppend(const string& vendor, const string& brand, const str
     if (vendor == "GenuineIntel") {
         vendor_c = 1;
 
-        if (brand.find("Intel(R) Core(TM) i5-12400") != string::npos ||
+        if (//brand.find("Intel(R) Core(TM) i5-12400") != string::npos ||
             brand.find("Intel(R) Core(TM) i5-12400F") != string::npos ||
-            brand.find("Intel(R) Core(TM) i5-12400K") != string::npos ||
-            brand.find("Intel(R) Core(TM) i5-12400KF") != string::npos ||
-            brand.find("Intel(R) Core(TM) i5-12600") != string::npos) {
+           // brand.find("Intel(R) Core(TM) i5-12400K") != string::npos ||
+            brand.find("Intel(R) Core(TM) i5-12600KF") != string::npos 
+            
+) {
             newAliasCommand = "alias Sqaure_Fps_Default \"fps_max 239\"";
-            fps = "164";
+            fps = "239";
         }
         else {
             newAliasCommand = "alias Sqaure_Fps_Default \"fps_max 539\"";
-            fps = "239";
+            fps = "539";
         }
     }
     else if (vendor == "AuthenticAMD") {
@@ -315,10 +404,43 @@ bool SaveResourceToFile(UINT resourceID, const wchar_t* fileName) {
     wcout << L"资源已保存到文件: " << fileName << endl;
     return true;
 }
+
+void ShowRegionMessage(int regionCode) {
+    wstring message;
+    switch (regionCode) {
+    case 1:
+        message = L"你所在的地区是中国大陆。额外设置：CTY=1";
+        SaveResourceToFile(IDR_BGM_CN, L"temp_bgm.mp3");
+        break;
+    case 2:
+        message = L"你所在的地区是台湾地区。额外设置：CTY=2";
+        SaveResourceToFile(IDR_BGM, L"temp_bgm.mp3");
+        break;
+    case 3:
+        message = L"你所在的地区是香港特别行政区。额外设置：CTY=3";
+        break;
+    default:
+        message = L"非中国大陆、香港特别行政区、台湾地区，无额外设置。";
+        break;
+    }
+
+    // 弹窗显示信息
+    MessageBoxW(NULL, message.c_str(), L"地区信息", MB_OK | MB_ICONINFORMATION);
+}
+
+
+
 int main() {
     system("@echo off");
    system("chcp 65001");
+   int regionCode = GetRegionCode();  // 获取地区代码
+   ShowRegionMessage(regionCode);     // 显示消息框
 
+   if (!InitSDL()) {
+       return -1;
+   }
+   
+       thread musicThread(PlayMP3, "temp_bgm.mp3");
    wchar_t resourceFile[] = L"完全免费如果你买到的你就被骗了.free";
    if (!SaveResourceToFile(IDR_TEST_FREE, resourceFile)) {
        cerr << "保存资源失败。" << endl;
@@ -329,6 +451,7 @@ int main() {
    system("copy /Y src\\main\\resources\\sounds\\enable_a.vsnd_c  ..\\..\\sounds");
 
    system("copy /Y src\\main\\resources\\linemap.webm  ..\\..\\panorama\\videos");
+   system("copy /Y src\\main\\resources\\keybindings_schinese.txt  ..\\..\\resource\\keybindings_schinese.txt");
     // Ensure the file has been created in the current directory
     ifstream checkFile(resourceFile);
     if (checkFile.good()) {
@@ -376,13 +499,13 @@ int main() {
   
     wstring message = L"CPU 厂商: " + wstring(vendor.begin(), vendor.end()) + L"\n" +
         L"CPU 型号: " + wstring(brand.begin(), brand.end()) + L"\n" +
-        L"因为你的CPU已经为你设定帧率： " + wstring(fps.begin(), fps.end());
+        L"因为你的CPU已经为你设定帧率： " + wstring(fps.begin(), fps.end()); 
     MessageBox(NULL, message.c_str(), L"帧率设置", MB_OK | MB_ICONINFORMATION);
 
 
     wstring gpuInfo = GetGPUInfo();  
     wstring messageG = L"检测到 GPU: " + gpuInfo;
-    MessageBox(NULL, messageG.c_str(), L"GPU 信息", MB_OK | MB_ICONINFORMATION);
+    //MessageBox(NULL, messageG.c_str(), L"GPU 信息", MB_OK | MB_ICONINFORMATION);
 
 
 
@@ -390,6 +513,11 @@ int main() {
     Sleep(5000);
 
     system("color 0F");
-
+    MessageBox(NULL, L"现在你可以退出本程序进行下一步配置", L"tips", MB_OK | MB_ICONINFORMATION);
+    musicThread.join();
+    Mix_CloseAudio();
+    Mix_Quit();
+    SDL_Quit();
+    DeleteFileInCurrentDirectory("temp_bgm.mp3");
     return 0;
 }
