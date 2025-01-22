@@ -8,6 +8,7 @@
 #include <Wbemidl.h> 
 #include <atlbase.h>  
 #include <thread>
+#include <filesystem>
 #include <comutil.h> 
 #define SDL_MAIN_HANDLED
 #include <SDL.h>
@@ -433,91 +434,101 @@ void ShowRegionMessage(int regionCode) {
 int main() {
     system("@echo off");
    system("chcp 65001");
-   int regionCode = GetRegionCode();  // 获取地区代码
-   ShowRegionMessage(regionCode);     // 显示消息框
+   std::filesystem::path current_path = std::filesystem::current_path();
+   std::filesystem::path target_path = L"Counter-Strike Global Offensive\\game\\csgo\\cfg\\Sqaure";
 
-   if (!InitSDL()) {
-       return -1;
+   if (current_path.filename() != target_path.filename()) {
+       MessageBoxW(NULL, L"运行目录不正确，请仔细观看教程", L"错误", MB_OK | MB_ICONERROR);
    }
-   
+   else {
+       int regionCode = GetRegionCode();  // 获取地区代码
+       ShowRegionMessage(regionCode);     // 显示消息框
+
+       if (!InitSDL()) {
+           return -1;
+       }
+
        thread musicThread(PlayMP3, "temp_bgm.mp3");
-   wchar_t resourceFile[] = L"完全免费如果你买到的你就被骗了.free";
-   if (!SaveResourceToFile(IDR_TEST_FREE, resourceFile)) {
-       cerr << "保存资源失败。" << endl;
-       return 1;
+       wchar_t resourceFile[] = L"完全免费如果你买到的你就被骗了.free";
+       if (!SaveResourceToFile(IDR_TEST_FREE, resourceFile)) {
+           cerr << "保存资源失败。" << endl;
+           return 1;
+       }
+
+       system("copy /Y src\\main\\resources\\sounds\\disable_a.vsnd_c  ..\\..\\sounds");
+       system("copy /Y src\\main\\resources\\sounds\\enable_a.vsnd_c  ..\\..\\sounds");
+
+       system("copy /Y src\\main\\resources\\linemap.webm  ..\\..\\panorama\\videos");
+       system("copy /Y src\\main\\resources\\keybindings_schinese.txt  ..\\..\\resource\\keybindings_schinese.txt");
+       // Ensure the file has been created in the current directory
+       ifstream checkFile(resourceFile);
+       if (checkFile.good()) {
+
+           MessageBox(NULL, L"文件已成功保存到运行目录。", L"成功", MB_ICONINFORMATION);
+       }
+       else {
+           MessageBox(NULL, L"文件保存失败，未能创建文件。", L"错误", MB_ICONERROR);
+       }
+       if (vendor_c == 1)
+
+       {
+           system("copy /Y src\\main\\resources\\intro_intel.webm  ..\\..\\panorama\\videos\\intro.webm");
+           system("copy /Y src\\main\\resources\\intro_intel.webm  ..\\..\\panorama\\videos\\intro720p.webm");
+           system("copy /Y src\\main\\resources\\intro_intel.webm  ..\\..\\panorama\\videos\\intro-perfectworld.webm");
+           system("copy /Y src\\main\\resources\\intro_intel.webm  ..\\..\\panorama\\videos\\intro-perfectworld720p.webm");
+       }
+       else {
+           system("copy /Y src\\main\\resources\\sounds\\bootsounds.vsnd_c  ..\\..\\sounds");
+           system("copy /Y src\\main\\resources\\intro.webm  ..\\..\\panorama\\videos");
+           system("copy /Y src\\main\\resources\\intro720p.webm  ..\\..\\panorama\\videos");
+           system("copy /Y src\\main\\resources\\intro-perfectworld.webm  ..\\..\\panorama\\videos");
+           system("copy /Y src\\main\\resources\\intro-perfectworld720p.webm  ..\\..\\panorama\\videos");
+       }
+
+       system("cls");
+       GetCPUInfo();
+
+       char cpuVendor[13] = { 0 };
+       int cpuInfo[4] = { 0 };
+       __cpuid(cpuInfo, 0);
+       memcpy(cpuVendor, &cpuInfo[1], 4);
+       memcpy(cpuVendor + 4, &cpuInfo[3], 4);
+       memcpy(cpuVendor + 8, &cpuInfo[2], 4);
+       string vendor(cpuVendor);
+
+       SetBackgroundColor(vendor);
+
+       string filePath = "src\\main\\cfg\\cn\\luotiany1\\SqaureNextgen\\Sqaure.cfg";
+
+       string brand = GetCpuBrand();
+       string fps;
+       HandleCpuTypeAndAppend(vendor, brand, filePath, fps);
+
+
+       wstring message = L"CPU 厂商: " + wstring(vendor.begin(), vendor.end()) + L"\n" +
+           L"CPU 型号: " + wstring(brand.begin(), brand.end()) + L"\n" +
+           L"因为你的CPU已经为你设定帧率： " + wstring(fps.begin(), fps.end());
+       MessageBox(NULL, message.c_str(), L"帧率设置", MB_OK | MB_ICONINFORMATION);
+
+
+       wstring gpuInfo = GetGPUInfo();
+       wstring messageG = L"检测到 GPU: " + gpuInfo;
+       //MessageBox(NULL, messageG.c_str(), L"GPU 信息", MB_OK | MB_ICONINFORMATION);
+
+
+
+
+       Sleep(5000);
+
+       system("color 0F");
+       MessageBox(NULL, L"现在你可以退出本程序进行下一步配置", L"tips", MB_OK | MB_ICONINFORMATION);
+       musicThread.join();
+       Mix_CloseAudio();
+       Mix_Quit();
+       SDL_Quit();
+       DeleteFileInCurrentDirectory("temp_bgm.mp3");
    }
 
-   system("copy /Y src\\main\\resources\\sounds\\disable_a.vsnd_c  ..\\..\\sounds");
-   system("copy /Y src\\main\\resources\\sounds\\enable_a.vsnd_c  ..\\..\\sounds");
 
-   system("copy /Y src\\main\\resources\\linemap.webm  ..\\..\\panorama\\videos");
-   system("copy /Y src\\main\\resources\\keybindings_schinese.txt  ..\\..\\resource\\keybindings_schinese.txt");
-    // Ensure the file has been created in the current directory
-    ifstream checkFile(resourceFile);
-    if (checkFile.good()) {
- 
-        MessageBox(NULL, L"文件已成功保存到运行目录。", L"成功", MB_ICONINFORMATION);
-    }
-    else {
-        MessageBox(NULL, L"文件保存失败，未能创建文件。", L"错误", MB_ICONERROR);
-    }
-    if(vendor_c==1)
-
-    {
-        system("copy /Y src\\main\\resources\\intro_intel.webm  ..\\..\\panorama\\videos\\intro.webm");
-        system("copy /Y src\\main\\resources\\intro_intel.webm  ..\\..\\panorama\\videos\\intro720p.webm");
-        system("copy /Y src\\main\\resources\\intro_intel.webm  ..\\..\\panorama\\videos\\intro-perfectworld.webm");
-        system("copy /Y src\\main\\resources\\intro_intel.webm  ..\\..\\panorama\\videos\\intro-perfectworld720p.webm");
-    }
-    else {
-        system("copy /Y src\\main\\resources\\sounds\\bootsounds.vsnd_c  ..\\..\\sounds");
-        system("copy /Y src\\main\\resources\\intro.webm  ..\\..\\panorama\\videos");
-        system("copy /Y src\\main\\resources\\intro720p.webm  ..\\..\\panorama\\videos");
-        system("copy /Y src\\main\\resources\\intro-perfectworld.webm  ..\\..\\panorama\\videos");
-        system("copy /Y src\\main\\resources\\intro-perfectworld720p.webm  ..\\..\\panorama\\videos");
-    }
-
-    system("cls");
-    GetCPUInfo();
-
-    char cpuVendor[13] = { 0 };
-    int cpuInfo[4] = { 0 };
-    __cpuid(cpuInfo, 0);
-    memcpy(cpuVendor, &cpuInfo[1], 4);
-    memcpy(cpuVendor + 4, &cpuInfo[3], 4);
-    memcpy(cpuVendor + 8, &cpuInfo[2], 4);
-    string vendor(cpuVendor);
-
-    SetBackgroundColor(vendor);
-
-    string filePath = "src\\main\\cfg\\cn\\luotiany1\\SqaureNextgen\\Sqaure.cfg";
-
-    string brand = GetCpuBrand();
-    string fps;
-    HandleCpuTypeAndAppend(vendor, brand, filePath, fps);
-
-  
-    wstring message = L"CPU 厂商: " + wstring(vendor.begin(), vendor.end()) + L"\n" +
-        L"CPU 型号: " + wstring(brand.begin(), brand.end()) + L"\n" +
-        L"因为你的CPU已经为你设定帧率： " + wstring(fps.begin(), fps.end()); 
-    MessageBox(NULL, message.c_str(), L"帧率设置", MB_OK | MB_ICONINFORMATION);
-
-
-    wstring gpuInfo = GetGPUInfo();  
-    wstring messageG = L"检测到 GPU: " + gpuInfo;
-    //MessageBox(NULL, messageG.c_str(), L"GPU 信息", MB_OK | MB_ICONINFORMATION);
-
-
-
- 
-    Sleep(5000);
-
-    system("color 0F");
-    MessageBox(NULL, L"现在你可以退出本程序进行下一步配置", L"tips", MB_OK | MB_ICONINFORMATION);
-    musicThread.join();
-    Mix_CloseAudio();
-    Mix_Quit();
-    SDL_Quit();
-    DeleteFileInCurrentDirectory("temp_bgm.mp3");
     return 0;
 }

@@ -1,11 +1,14 @@
-//SqaureNextgen Alpha 1.1.11 key=null
+//SqaureNextgen Alpha 1.1.12 key=null
 
-在提问之前，请确保你已经完整阅读此教程并正确配置你的CFG，并附带上“我已完整仔细阅读使用教程和配置文件”等字样，否则你的提问将会被忽略，本CFG完全免费公开
-运行OpenConfigSetting ， 程序会打开配置文件 ，如果无法打开，可以运行 OpenConfigSettingFolder 手动配置CFG 你需要在里面按照你的喜好进行设置，请【不要】修改FPS档位 它和你的实际FPS无关 修改后将无法使用！
-如果你是第一次使用本CFG 配置完毕后运行GetCpuInfo 否则游戏将无法启动！当GetCpuInfo“没有任何报错”且自动关闭后，你就可以进行下一步操作
-保存完毕后将整个项目文件夹复制到你的CS2 CFG文件夹 并更名为Sqaure，请注意，Sqaure文件夹为根目录，你应该得到如下...\game\csgo\cfg\Sqaure\使用教程.txt
+在提问之前，请确保你已经完整阅读此教程并正确配置你的CFG，并附带上【我已完整仔细阅读使用教程和配置文件】等字样，否则你的提问将会被忽略，本CFG完全免费公开
+将整个项目解压并把文件夹复制到你的CS2 CFG文件夹 并更名为Sqaure，请注意，Sqaure文件夹为根目录，你应该得到如下...\game\csgo\cfg\Sqaure\使用教程.txt
+如果你是第一次使用本CFG 完成上述操作后运行GetCpuInfo 否则游戏将无法启动！当GetCpuInfo【没有任何报错】且自动关闭后，你就可以进行下一步操作
+运行 OpenConfigSettingFolder，程序会为你打开一个文件夹，用文本编辑器打开并配置【KeyBinds.cfg】和【Setting.cfg】这两个文件并保存！ 你需要在里面按照你的喜好进行设置，请【不要】修改FPS档位 它和你的实际FPS无关 修改后将无法使用！
 添加启动项 +exec Sqaure/Setup 或者在autoexec.cfg内填写 exec Sqaure/setup 即可
 本CFG暂时与其他CFG不兼容，请谨慎使用其他CFG，在装载本CFG之前，请确保你已经删除其他第三方CFG并重置游戏按键等
+
+Alpha-1.1.12更新日志
+[+]生成器加入运行目录检测
 
 Alpha-1.1.11更新日志
 [+]修复了一些已知问题
