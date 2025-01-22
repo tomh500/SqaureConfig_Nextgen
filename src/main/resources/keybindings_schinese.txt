@@ -23,7 +23,7 @@
 
 	"Ignore_Broadcast_Messages"								"Sqaure Alpha公测 1.1.7 免费 安全 无毒 开源"
 	"Ignore_Broadcast_Team_Messages"							"官方网站https://sqaure.luotiany1.cn "
-	"Accept_All_Messages"									"此‎消‎息‎仅‎自‎己‎可‎见 | 第‎一‎回‎合‎结‎束‎后‎此‎消‎息‎消‎失"
+	"Accept_All_Messages"									"此‎消‎息‎仅‎自‎己‎可‎见 | 本回合结‎束‎后‎此‎消‎息‎消‎失"
 
 
 
