@@ -7,6 +7,11 @@
 添加启动项 +exec Sqaure/Setup 或者在autoexec.cfg内填写 exec Sqaure/setup 即可
 本CFG暂时与其他CFG不兼容，请谨慎使用其他CFG，在装载本CFG之前，请确保你已经删除其他第三方CFG并重置游戏按键等
 
+Alpha-1.1.14更新日志
+[+]为desubtick动作进行了可能的修复
+[+]自动手枪模块开关逻辑重做
+
+
 Alpha-1.1.13更新日志
 [+]添加了【自动检视】模块
 [+]为tec9、elite等武器添加了切换自动开启【自动手枪】模块
