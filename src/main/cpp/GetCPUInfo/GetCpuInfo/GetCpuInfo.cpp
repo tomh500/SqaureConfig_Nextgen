@@ -478,11 +478,20 @@ int main() {
            system("copy /Y src\\main\\resources\\intro_intel.webm  ..\\..\\panorama\\videos\\intro-perfectworld720p.webm");
        }
        else {
-           system("copy /Y src\\main\\resources\\sounds\\bootsounds.vsnd_c  ..\\..\\sounds");
-           system("copy /Y src\\main\\resources\\intro.webm  ..\\..\\panorama\\videos");
-           system("copy /Y src\\main\\resources\\intro720p.webm  ..\\..\\panorama\\videos");
-           system("copy /Y src\\main\\resources\\intro-perfectworld.webm  ..\\..\\panorama\\videos");
-           system("copy /Y src\\main\\resources\\intro-perfectworld720p.webm  ..\\..\\panorama\\videos");
+           string insteadboot;
+           cout << "是否允许替换游戏启动画面和音乐，如果不允许，请输入0，否则将默认替换";
+           cin >> insteadboot;
+           if (insteadboot != "0")
+           {
+               system("copy /Y src\\main\\resources\\sounds\\bootsounds.vsnd_c  ..\\..\\sounds");
+               system("copy /Y src\\main\\resources\\intro.webm  ..\\..\\panorama\\videos");
+               system("copy /Y src\\main\\resources\\intro720p.webm  ..\\..\\panorama\\videos");
+               system("copy /Y src\\main\\resources\\intro-perfectworld.webm  ..\\..\\panorama\\videos");
+               system("copy /Y src\\main\\resources\\intro-perfectworld720p.webm  ..\\..\\panorama\\videos");
+               cout << "1\n\n";
+           }
+           cout << "0\n\n";
+
        }
 
        system("cls");
