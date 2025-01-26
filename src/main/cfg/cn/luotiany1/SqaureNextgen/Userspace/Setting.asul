@@ -17,6 +17,7 @@ func "移动方案选择" "" "Sqaure_Movement_A" 5
 "Sqaure_Movement_C" "键盘Snaptap方案"
 "Sqaure_Movement_D" "键盘Nullbind方案"
 "Sqaure_Movement_F" "摇杆Snaptap方案"
+"Sqaure_Movement_G" "单键急停（测试）"
 func "上滚轮绑定" "" "Sqaure_Mwheelup_Jump" 3
 "Sqaure_Mwheelup_Jump" "上滚轮跳"
 "Sqaure_Mwheelup_Solt" "上滚轮切枪"
@@ -36,7 +37,7 @@ func "自动连跳" "" "Sqaure_AutoBhop_Disbale" 2
 "Sqaure_AutoBhop_Disbale" "关闭"
 func "自动连跳方案" "" "Sqaure_AutoBhop_Auto" 2
 "Sqaure_AutoBhop_Auto" "全自动"
-"Sqaure_AutoBhop_Legacy" "半自动(5E)"
+"Sqaure_AutoBhop_Legacy" "半自动(仅限5E)"
 func "平台选择" "这关系到你的自动连跳方案等" "Sqaure_Platform_Normal" 3
 "Sqaure_Platform_Normal" "官方服务器"
 "Sqaure_Platform_Perfect" "完美/Faceit"
