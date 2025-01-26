@@ -1,0 +1,55 @@
+func "输出方式" "" "Sqaure_Output_Echo" 3
+"Sqaure_Output_Team" "输出到队伍" 
+"Sqaure_Output_Echo" "输出到控制台"
+"Sqaure_Output_Null" "不输出"
+func "模块开关提示音" "" "Sqaure_TipSound_Enable" 2
+"Sqaure_TipSound_Enable" "开启"
+"Sqaure_TipSound_Disable" "关闭"
+func "是否进行desubtick" "" "Sqaure_Desubtick_Disble" 2
+"Sqaure_Desubtick_Enable" "开启"
+"Sqaure_Desubtick_Disble" "关闭"
+func "是否移动进行desubtick" "" "Sqaure_MoveDesubtick_Disable" 2
+"Sqaure_MoveDesubtick_Enable" "开启"
+"Sqaure_MoveDesubtick_Disable" "关闭"
+func "移动方案选择" "" "Sqaure_Movement_A" 5
+"Sqaure_Movement_A" "键盘方案"
+"Sqaure_Movement_B" "摇杆方案"
+"Sqaure_Movement_C" "键盘Snaptap方案"
+"Sqaure_Movement_D" "键盘Nullbind方案"
+"Sqaure_Movement_F" "摇杆Snaptap方案"
+func "上滚轮绑定" "" "Sqaure_Mwheelup_Jump" 3
+"Sqaure_Mwheelup_Jump" "上滚轮跳"
+"Sqaure_Mwheelup_Solt" "上滚轮切枪"
+"Sqaure_Mwheelup_Null" "上滚轮无动作"
+func "下滚轮绑定" "" "Sqaure_Mwheeldown_Jump" 3
+"Sqaure_Mwheeldown_Jump" "下滚轮跳"
+"Sqaure_Mwheeldown_Solt" "下滚轮切枪"
+"Sqaure_Mwheeldown_Null" "下滚轮无动作"
+func "自动手枪开关" "" "Sqaure_AutoShoot_Disable" 2
+"Sqaure_AutoShoot_Enable" "开启"
+"Sqaure_AutoShoot_Disable" "关闭"
+func "连跳增强" "" "Sqaure_BetterBhop_Disable" 2
+"Sqaure_BetterBhop_Enable" "开启"
+"Sqaure_BetterBhop_Disable" "关闭"
+func "自动连跳" "" "Sqaure_AutoBhop_Disbale" 2
+"Sqaure_AutoBhop_Enable" "开启"
+"Sqaure_AutoBhop_Disbale" "关闭"
+func "自动连跳方案" "" "Sqaure_AutoBhop_Auto" 2
+"Sqaure_AutoBhop_Auto" "全自动"
+"Sqaure_AutoBhop_Legacy" "半自动(5E)"
+func "平台选择" "这关系到你的自动连跳方案等" "Sqaure_Platform_Normal" 3
+"Sqaure_Platform_Normal" "官方服务器"
+"Sqaure_Platform_Perfect" "完美/Faceit"
+"Sqaure_Platform_EEEEE" "5E对战平台"
+func "滚轮跳方案" "无需滚轮跳请无视" "Sqaure_MwheelJump_A" 3
+"Sqaure_MwheelJump_A" "正常方案"
+"Sqaure_MwheelJump_B" "Desubtick方案"
+"Sqaure_MwheelJump_C" "MouseXY方案"
+func "自动检视" "" "Sqaure_lkatwp_null" 4
+"Sqaure_lkatwp_3" "按3自动检视"
+"Sqaure_lkatwp_4" "按4自动检视"
+"Sqaure_lkatwp_muti" "按3、4均自动检视"
+"Sqaure_lkatwp_null" "不自动检视"
+func "碧蓝档案替换音乐" "限AMD" "Sqaure_Loadmusic_BA" 2
+"Sqaure_Loadmusic_BA" "启用"
+"Sqaure_Loadmusic_Mute" "静音"

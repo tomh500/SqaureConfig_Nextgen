@@ -296,12 +296,12 @@ void HandleCpuTypeAndAppend(const string& vendor, const string& brand, const str
             brand.find("Intel(R) Core(TM) i5-12600KF") != string::npos 
             
 ) {
-            newAliasCommand = "alias Sqaure_Fps_Default \"fps_max 239\"";
-            fps = "239";
-        }
-        else {
             newAliasCommand = "alias Sqaure_Fps_Default \"fps_max 539\"";
             fps = "539";
+        }
+        else {
+            newAliasCommand = "alias Sqaure_Fps_Default \"fps_max 1009\"";
+            fps = "1009";
         }
     }
     else if (vendor == "AuthenticAMD") {

@@ -21,7 +21,7 @@
 	"CFG_Function_IsNxtPage"								"已是最后一页\n \n \n \n"
 	
 
-	"Ignore_Broadcast_Messages"								"Sqaure Alpha公测 1.1.14 免费 安全 无毒 开源"
+	"Ignore_Broadcast_Messages"								"Sqaure Beta公测 1.0 免费 安全 无毒 开源"
 	"Ignore_Broadcast_Team_Messages"							"官方网站https://sqaure.luotiany1.cn "
 	"Accept_All_Messages"									"此‎消‎息‎仅‎自‎己‎可‎见 | 本回合结‎束‎后‎此‎消‎息‎消‎失"
 

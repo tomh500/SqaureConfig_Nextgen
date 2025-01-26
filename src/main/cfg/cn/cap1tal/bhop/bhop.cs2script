@@ -1,4 +1,4 @@
-DEFINEPATH Horizon/src/modules/scheduler/stuff/bhop
+DEFINEPATH Sqaure/src/main/cfg/cn/cap1tal/scheduler/stuff/bhop
 
 BEEP
 SLEEP 0

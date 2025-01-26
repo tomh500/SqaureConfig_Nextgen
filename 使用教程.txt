@@ -1,11 +1,36 @@
-//SqaureNextgen Alpha 1.1.12 key=null
-
 在提问之前，请确保你已经完整阅读此教程并正确配置你的CFG，并附带上【我已完整仔细阅读使用教程和配置文件】等字样，否则你的提问将会被忽略，本CFG完全免费公开
-将整个项目解压并把文件夹复制到你的CS2 CFG文件夹 并更名为Sqaure，请注意，Sqaure文件夹为根目录，你应该得到如下...\game\csgo\cfg\Sqaure\使用教程.txt
-如果你是第一次使用本CFG 完成上述操作后运行GetCpuInfo 否则游戏将无法启动！当GetCpuInfo【没有任何报错】且自动关闭后，你就可以进行下一步操作
-运行 OpenConfigSettingFolder，程序会为你打开一个文件夹，用文本编辑器打开并配置【KeyBinds.cfg】和【Setting.cfg】这两个文件并保存！ 你需要在里面按照你的喜好进行设置，请【不要】修改FPS档位 它和你的实际FPS无关 修改后将无法使用！
+
+【自动安装方式】
+解压项目文件夹后，运行Asul安装器，并在选择项目文件夹内的zip文件，选择后，在Asul安装器内进行CFG配置，配置完成后，程序会自动运行Sqaure安装器，如果你没有接收到任何报错弹窗，那么就可以进行下一步，添加启动项 +exec Sqaure/Setup 或者在autoexec.cfg内填写 exec Sqaure/setup 即可
+本CFG暂时与其他CFG不兼容，请谨慎使用其他CFG，在装载本CFG之前，请确保你已经删除其他第三方CFG并重置游戏按键等
+
+
+【手动安装方式】
+将整个项目解压后，再次解压CFG的压缩包，并把文件夹复制到你的CFG文件夹 并更名为Sqaure，请注意，Sqaure文件夹为根目录，你应该得到如下...\game\csgo\cfg\Sqaure\Setup.cfg
+如果你是第一次使用本CFG 完成上述操作后运行GetCpuInfo 否则游戏将无法启动！当GetCpuInfo 没有任何报错 且自动关闭后，你就可以进行下一步操作
+运行 OpenConfigSettingFolder，程序会为你打开一个文件夹，用文本编辑器打开并配置 KeyBinds.cfg 和 Setting.cfg 这两个文件并保存！ 你需要在里面按照你的喜好进行设置，请不要修改FPS档位 它和你的实际FPS无关 修改后将无法使用！
 添加启动项 +exec Sqaure/Setup 或者在autoexec.cfg内填写 exec Sqaure/setup 即可
 本CFG暂时与其他CFG不兼容，请谨慎使用其他CFG，在装载本CFG之前，请确保你已经删除其他第三方CFG并重置游戏按键等
+
+Beta-1.0更新日志
+[+]接入Asul Project
+[+]更改了项目release结构
+[+]添加移动方案G
+[+]添加【手动旋转】模块
+[+]添加【重置Sqaure】绑定
+[+]重做输出系统
+[+]将更多绑定加入自定义
+[+]正式在代码中引用cap1tal部分
+[+]在内部代码中添加了对轮盘的支持
+[+]将所有模块定义了cvar，但并未引用
+[+]大幅修改项目内部结构
+[+]增强了防倒卖手段
+[+]修复了在Alpha测试中的遗留问题	{此处共计3个已知问题}
+[-]移除对英特尔供应商的锁帧一级惩罚
+[-]二级惩罚将降级为一级惩罚
+[-]去除5E 32分钟计时
+
+
 
 Alpha-1.1.14更新日志
 [+]为desubtick动作进行了可能的修复
