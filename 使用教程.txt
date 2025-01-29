@@ -12,6 +12,12 @@
 添加启动项 +exec Sqaure/Setup 或者在autoexec.cfg内填写 exec Sqaure/setup 即可
 本CFG暂时与其他CFG不兼容，请谨慎使用其他CFG，在装载本CFG之前，请确保你已经删除其他第三方CFG并重置游戏按键等
 
+Beta-1.0.1更新日志
+[+]修复了E键问题
+[+]修复了输出系统未正确初始化的问题
+[+]修改了G模式移动调试信息
+[+]将重置按键绑定正式添加到绑定文件信息
+
 Beta-1.0更新日志
 [+]接入Asul Project
 [+]更改了项目release结构
