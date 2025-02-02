@@ -1,6 +1,7 @@
 text "//替换下面的6293.706294 这个数值计算方法为180/(A*B) 其中A可以查看你的游戏灵敏度获取，B可以在控制台输入m_yaw获取，一般为0.022"
 text "// 项目已经为你配备了计算器，你只需要获取这些数值"
 line "手动旋转数值" "你需要修改为你自己的数值,算法\n180 / (sensitivity * m_yaw)" "alias cMot_gyro_angle yaw %1 1 1" "6293.706294"
+line "灵敏度数值" "你需要修改为你自己的数值，否则灵敏度将被替换为你不想要的" "alias rec_sensitivity sensitivity %1" "1.28"
 func "输出方式" "" "Sqaure_Output_Team" 3
 "Sqaure_Output_Team" "输出到队伍" 
 "Sqaure_Output_Echo" "输出到控制台"
