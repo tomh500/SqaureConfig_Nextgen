@@ -62,6 +62,7 @@
 	"CFG_ITEMS_MIRAGE_STAND"									"A1扔跳台烟\n \n \n \n"
 	"CFG_ITEMS_MIRAGE_JG"										"A1扔Jungle过点烟\n \n \n \n"
 	"CFG_ITEMS_MIRAGE_CT"										"A1扔警家烟\n \n \n \n"
+	"CFG_ITEMS_MIRAGE_A2"										"A1扔A2下过点烟\n \n \n \n"
 	"CFG_ITEMS_MIRAGE_ADOOR"									"拱门烟\n \n \n \n"
 	"CFG_ITEMS_NUKE_OUT1"										"外场一线烟A(红箱)\n \n \n \n"
 	"CFG_ITEMS_NUKE_OUT2"										"外场一线烟B(红箱)\n \n \n \n"
