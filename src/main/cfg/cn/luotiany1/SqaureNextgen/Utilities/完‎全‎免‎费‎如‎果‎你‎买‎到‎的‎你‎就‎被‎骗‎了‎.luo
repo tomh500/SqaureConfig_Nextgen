@@ -1,0 +1,5 @@
+Sleep 1000
+alias Checker "quit"
+echo Sqaure/完全免费如果你买到的你就被骗了.free | exec
+Checker
+alias luotiany1_free

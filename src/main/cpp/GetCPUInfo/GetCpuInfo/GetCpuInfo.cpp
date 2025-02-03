@@ -525,17 +525,16 @@ int main() {
        //MessageBox(NULL, messageG.c_str(), L"GPU 信息", MB_OK | MB_ICONINFORMATION);
 
 
-
-
-       Sleep(5000);
-
        system("color 0F");
+       system("start teach");
        MessageBox(NULL, L"现在你可以退出本程序进行下一步配置", L"tips", MB_OK | MB_ICONINFORMATION);
+  
        musicThread.join();
        Mix_CloseAudio();
        Mix_Quit();
        SDL_Quit();
        DeleteFileInCurrentDirectory("temp_bgm.mp3");
+
    }
 
 
