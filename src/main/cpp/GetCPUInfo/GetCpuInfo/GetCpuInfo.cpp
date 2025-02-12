@@ -410,18 +410,18 @@ void ShowRegionMessage(int regionCode) {
     wstring message;
     switch (regionCode) {
     case 1:
-        message = L"你所在的地区是中国大陆。额外设置：CTY=1";
+        message = L"你所在的地区是中国大陆。本CFG完全免费！";
         SaveResourceToFile(IDR_BGM_CN, L"temp_bgm.mp3");
         break;
     case 2:
-        message = L"你所在的地区是台湾地区。额外设置：CTY=2";
+        message = L"你所在的地区是台湾地区。本CFG完全免费！";
         SaveResourceToFile(IDR_BGM, L"temp_bgm.mp3");
         break;
     case 3:
-        message = L"你所在的地区是香港特别行政区。额外设置：CTY=3";
+        message = L"你所在的地区是香港特别行政区。本CFG完全免费！";
         break;
     default:
-        message = L"非中国大陆、香港特别行政区、台湾地区，无额外设置。";
+        message = L"非中国大陆、香港特别行政区、台湾地区。本CFG完全免费！";
         break;
     }
 
@@ -449,11 +449,7 @@ int main() {
        }
 
        thread musicThread(PlayMP3, "temp_bgm.mp3");
-       wchar_t resourceFile[] = L"完全免费如果你买到的你就被骗了.free";
-       if (!SaveResourceToFile(IDR_TEST_FREE, resourceFile)) {
-           cerr << "保存资源失败。" << endl;
-           return 1;
-       }
+
 
        system("copy /Y src\\main\\resources\\sounds\\disable_a.vsnd_c  ..\\..\\sounds");
        system("copy /Y src\\main\\resources\\sounds\\enable_a.vsnd_c  ..\\..\\sounds");
@@ -461,14 +457,7 @@ int main() {
        system("copy /Y src\\main\\resources\\linemap.webm  ..\\..\\panorama\\videos");
        system("copy /Y src\\main\\resources\\keybindings_schinese.txt  ..\\..\\resource\\keybindings_schinese.txt");
        // Ensure the file has been created in the current directory
-       ifstream checkFile(resourceFile);
-       if (checkFile.good()) {
 
-           MessageBox(NULL, L"文件已成功保存到运行目录。", L"成功", MB_ICONINFORMATION);
-       }
-       else {
-           MessageBox(NULL, L"文件保存失败，未能创建文件。", L"错误", MB_ICONERROR);
-       }
        if (vendor_c == 1)
 
        {
@@ -479,7 +468,7 @@ int main() {
        }
        else {
            string insteadboot;
-           cout << "是否允许替换游戏启动画面和音乐，如果不允许，请输入0，否则将默认替换";
+           cout << "是否允许替换游戏启动画面和音乐，如果不允许，请输入0，否则将默认替换：";
            cin >> insteadboot;
            if (insteadboot != "0")
            {
@@ -493,7 +482,7 @@ int main() {
            cout << "0\n\n";
 
        }
-
+       system("copy /Y src\\main\\resources\\Sqaure_Installed.cfg  ..\\..\\..\\cfg");
        system("cls");
        GetCPUInfo();
 
@@ -527,8 +516,22 @@ int main() {
 
        system("color 0F");
        system("start teach");
+       wchar_t resourceFile[] = L"完全免费如果你买到的你就被骗了.free";
+       if (!SaveResourceToFile(IDR_TEST_FREE, resourceFile)) {
+           cerr << "保存资源失败。" << endl;
+           return 1;
+       }
+       ifstream checkFile(resourceFile);
+       if (checkFile.good()) {
+
+           MessageBox(NULL, L"文件已成功保存到运行目录。", L"成功", MB_ICONINFORMATION);
+       }
+       else {
+           MessageBox(NULL, L"文件保存失败，未能创建文件。", L"错误", MB_ICONERROR);
+       }
+
        MessageBox(NULL, L"现在你可以退出本程序进行下一步配置", L"tips", MB_OK | MB_ICONINFORMATION);
-  
+
        musicThread.join();
        Mix_CloseAudio();
        Mix_Quit();

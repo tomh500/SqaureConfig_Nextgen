@@ -109,12 +109,15 @@
 	"CFG_ITEMS_INFERNO_TTOAPATH"								"T扔链接快烟\n \n \n \n"
 	"CFG_ITEMS_INFERNO_BFLASHPLUS"								"B站创新无敌闪\n \n \n \n"
 
-
+	"CFG_SETTING_S_UI"										"灵敏度快捷切换"
+	"CFG_SETTING_LOW_S"										"低灵敏度"
+	"CFG_SETTING_MID_S"										"中灵敏度"
+	"CFG_SETTING_HIGH_S"									"高灵敏度"
 	"CFG_SETTING_PLATFORM_UI"								"服务器连跳方案菜单\n \n \n \n"
 	"CFG_SETTING_PLATFORM_PERFECT"							"完美平台、官匹\n \n \n \n"
 	"CFG_SETTING_PLATFORM_EEEEE"							"5E平台\n \n \n \n"
-	"Ignore_Broadcast_Messages"								"Sqaure‎B‎e‎t‎a公‎测 1.‎1.‎1 免‎费 安‎全 无‎毒 开‎源"
-	"Ignore_Broadcast_Team_Messages"						"官‎方‎网‎站h‎t‎t‎ps://s‎q‎a‎ur‎e.lu‎o‎t‎i‎a‎n‎y1‎.c‎n "
+	"Ignore_Broadcast_Messages"								"Sqaure‎B‎e‎t‎a公‎测 1.‎2 免‎费 安‎全 无‎毒 开‎源"
+	"Ignore_Broadcast_Team_Messages"						"B‎站‎独‎家‎免‎费‎发‎布！"
 	"Accept_All_Messages"									"此‎消‎息‎仅‎自‎己‎可‎见 | 本回合结‎束‎后‎此‎消‎息‎消‎失"
 
 

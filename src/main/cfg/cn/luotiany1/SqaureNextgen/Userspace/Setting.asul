@@ -2,6 +2,12 @@ text "//替换下面的6293.706294 这个数值计算方法为180/(A*B) 其中A�
 text "// 项目已经为你配备了计算器，你只需要获取这些数值"
 line "手动旋转数值" "你需要修改为你自己的数值,算法\n180 / (sensitivity * m_yaw)" "alias spinbot yaw %1 1 1" "6293.706294"
 line "灵敏度数值" "你需要修改为你自己的数值，否则灵敏度将被替换为你不想要的" "alias rec_sensitivity sensitivity %1" "1.28"
+line "快捷切换灵敏度（低）" "你可以无视它，如果你不需要" "alias low_s alias rec_sensitivity sensitivity %1" ""
+line "快捷切换灵敏度（中）" "你可以无视它，如果你不需要" "alias mid_s alias rec_sensitivity sensitivity %1" "1.28"
+line "快捷切换灵敏度（高）" "你可以无视它，如果你不需要" "alias high_s alias rec_sensitivity sensitivity %1" ""
+line "快捷切换旋转数值（低）" "你可以无视它，如果你不需要" "alias low_r alias   spinbot yaw %1 1 1" "8181"
+line "快捷切换旋转数值（中）" "你可以无视它，如果你不需要" "alias mid_r alias   spinbot yaw %1 1 1" "6293"
+line "快捷切换旋转数值（高）" "你可以无视它，如果你不需要" "alias high_r alias  spinbot yaw %1 1 1" "2727"
 func "输出方式" "" "Sqaure_Output_Team" 3
 "Sqaure_Output_Team" "输出到队伍" 
 "Sqaure_Output_Echo" "输出到控制台"
@@ -21,7 +27,7 @@ func "移动方案选择" "" "Sqaure_Movement_A" 6
 "Sqaure_Movement_C" "键盘Snaptap方案"
 "Sqaure_Movement_D" "键盘Nullbind方案"
 "Sqaure_Movement_F" "摇杆Snaptap方案"
-"Sqaure_Movement_G" "单键急停（测试）"
+"Sqaure_Movement_G" "单键急停（测试功能，含有诸多BUG）"
 func "上滚轮绑定" "" "Sqaure_Mwheelup_Jump" 3
 "Sqaure_Mwheelup_Jump" "上滚轮跳"
 "Sqaure_Mwheelup_Solt" "上滚轮切枪"
@@ -38,13 +44,12 @@ func "连跳增强" "" "Sqaure_BetterBhop_Disable" 2
 func "自动连跳" "" "Sqaure_AutoBhop_Disbale" 2
 "Sqaure_AutoBhop_Enable" "开启"
 "Sqaure_AutoBhop_Disbale" "关闭"
-func "自动连跳方案" "" "Sqaure_AutoBhop_Auto" 2
+func "自动连跳方案" "" "Sqaure_AutoBhop_Auto" 1
 "Sqaure_AutoBhop_Auto" "全自动"
-"Sqaure_AutoBhop_Legacy" "半自动(仅限5E)"
 func "平台选择" "这关系到你的自动连跳方案等" "Sqaure_Platform_Normal" 3
 "Sqaure_Platform_Normal" "官方服务器"
 "Sqaure_Platform_Perfect" "完美/Faceit"
-"Sqaure_Platform_EEEEE" "5E对战平台"
+"Sqaure_Platform_EEEEE" "特殊情况，非开发人员请勿选择"
 func "滚轮跳方案" "无需滚轮跳请无视" "Sqaure_MwheelJump_A" 3
 "Sqaure_MwheelJump_A" "正常方案"
 "Sqaure_MwheelJump_B" "Desubtick方案"
