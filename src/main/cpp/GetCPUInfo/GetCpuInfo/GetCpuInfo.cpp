@@ -482,7 +482,7 @@ int main() {
            cout << "0\n\n";
 
        }
-       system("copy /Y src\\main\\resources\\Sqaure_Installed.cfg  ..\\..\\..\\cfg");
+       
        system("cls");
        GetCPUInfo();
 
@@ -512,6 +512,7 @@ int main() {
        wstring gpuInfo = GetGPUInfo();
        wstring messageG = L"检测到 GPU: " + gpuInfo;
        //MessageBox(NULL, messageG.c_str(), L"GPU 信息", MB_OK | MB_ICONINFORMATION);
+      
 
 
        system("color 0F");
@@ -529,7 +530,8 @@ int main() {
        else {
            MessageBox(NULL, L"文件保存失败，未能创建文件。", L"错误", MB_ICONERROR);
        }
-
+       system("copy /Y src\\main\\resources\\Sqaure_Installed.cfg  ..\\..\\..\\cfg");
+       cout << "所有文件均复制完成！\n";
        MessageBox(NULL, L"现在你可以退出本程序进行下一步配置", L"tips", MB_OK | MB_ICONINFORMATION);
 
        musicThread.join();
