@@ -110,9 +110,11 @@
 	"CFG_ITEMS_INFERNO_BFLASHPLUS"								"B站创新无敌闪\n \n \n \n"
 
 	"CFG_SETTING_S_UI"										"灵敏度快捷切换"
+	"CFG_SETTING_SUPERLOW_S"										"超低灵敏度"
 	"CFG_SETTING_LOW_S"										"低灵敏度"
 	"CFG_SETTING_MID_S"										"中灵敏度"
 	"CFG_SETTING_HIGH_S"									"高灵敏度"
+	"CFG_SETTING_SUPERHIGH_S"									"超高灵敏度"
 	"CFG_SETTING_PLATFORM_UI"								"服务器连跳方案菜单\n \n \n \n"
 	"CFG_SETTING_PLATFORM_PERFECT"							"完美平台、官匹\n \n \n \n"
 	"CFG_SETTING_PLATFORM_EEEEE"							"5E平台\n \n \n \n"
