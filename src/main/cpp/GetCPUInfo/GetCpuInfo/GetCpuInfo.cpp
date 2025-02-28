@@ -530,7 +530,7 @@ int main() {
        else {
            MessageBox(NULL, L"文件保存失败，未能创建文件。", L"错误", MB_ICONERROR);
        }
-       system("copy /Y src\\main\\resources\\Sqaure_Installed.cfg  ..\\..\\..\\cfg");
+       system("copy /Y src\\main\\resources\\Sqaure_Installed.cfg  ..\\..\\..\\cfg\\Sqaure_Installed.cfg");
        cout << "所有文件均复制完成！\n";
        MessageBox(NULL, L"现在你可以退出本程序进行下一步配置", L"tips", MB_OK | MB_ICONINFORMATION);
 
