@@ -1,7 +1,7 @@
 ﻿  GetCpuInfo.cpp
   正在生成代码
-  1 of 786 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+  368 of 1019 functions (36.1%) were compiled, the rest were copied from previous compilation.
+    233 functions were new in current compilation
+    114 functions had inline decision re-evaluated but remain unchanged
   已完成代码的生成
   GetCpuInfo.vcxproj -> D:\SteamLibrary\steamapps\common\Counter-Strike Global Offensive\game\csgo\cfg\Sqaure\src\main\cpp\GetCPUInfo\GetCpuInfo\x64\Release\GetCpuInfo.exe

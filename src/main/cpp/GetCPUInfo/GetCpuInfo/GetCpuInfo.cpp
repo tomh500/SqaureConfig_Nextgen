@@ -21,6 +21,8 @@ using namespace std;
 #include <Wbemidl.h>  // 用于 WMI 接口
 #pragma comment(lib, "wbemuuid.lib")  // 链接 WMI 库
 
+namespace fs = std::filesystem;
+
 int vendor_c = 0;
 
 // 初始化SDL2和SDL_mixer
@@ -530,7 +532,28 @@ int main() {
        else {
            MessageBox(NULL, L"文件保存失败，未能创建文件。", L"错误", MB_ICONERROR);
        }
-       system("copy /Y src\\main\\resources\\Sqaure_Installed.cfg  ..\\..\\..\\cfg\\Sqaure_Installed.cfg");
+      // system("copy /Y src\\main\\resources\\Sqaure_Installed.cfg  ..\\..\\..\\cfg\\Sqaure_Installed.cfg");
+         // 源文件路径和目标文件路径
+       std::string source = "src\\main\\resources\\Sqaure_Installed.cfg";
+       std::string destination = "..\\..\\..\\cfg\\Sqaure_Installed.cfg";
+
+       // 获取目标文件夹路径
+       fs::path destDir = fs::path(destination).parent_path();
+
+       // 检查目标文件夹是否存在，如果不存在则创建
+       if (!fs::exists(destDir)) {
+           std::cout << "目标文件夹不存在，正在创建..." << std::endl;
+           fs::create_directories(destDir);  // 创建文件夹及其所有父文件夹
+       }
+
+       // 复制文件
+       try {
+           fs::copy(source, destination, fs::copy_options::overwrite_existing);
+           std::cout << "文件已成功复制到: " << destination << std::endl;
+       }
+       catch (const std::exception& e) {
+           std::cout << "复制文件失败: " << e.what() << std::endl;
+       }
        cout << "所有文件均复制完成！\n";
        MessageBox(NULL, L"现在你可以退出本程序进行下一步配置", L"tips", MB_OK | MB_ICONINFORMATION);
 
