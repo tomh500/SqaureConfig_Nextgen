@@ -24,13 +24,17 @@ func "是否进行desubtick" "" "Sqaure_Desubtick_Disble" 2
 func "是否移动进行desubtick" "" "Sqaure_MoveDesubtick_Disable" 2
 "Sqaure_MoveDesubtick_Enable" "开启"
 "Sqaure_MoveDesubtick_Disable" "关闭"
-func "移动方案选择" "" "Sqaure_Movement_A" 6
+func "移动方案选择" "" "Sqaure_Movement_A" 10
 "Sqaure_Movement_A" "键盘方案"
 "Sqaure_Movement_B" "摇杆方案"
-"Sqaure_Movement_C" "键盘Snaptap方案"
-"Sqaure_Movement_D" "键盘Nullbind方案"
-"Sqaure_Movement_F" "摇杆Snaptap方案"
-"Sqaure_Movement_G" "单键急停（测试功能，含有诸多BUG）"
+"Sqaure_Movement_C" "键盘多次后覆盖（原Snaptap）"
+"Sqaure_Movement_D" "键盘单次后覆盖（原Nullbind）"
+"Sqaure_Movement_E1" "恶俗硬汉兼容层急停第一档+后覆盖 （测试功能120fps）"
+"Sqaure_Movement_E2" "恶俗硬汉兼容层急停第二档+后覆盖 （测试功能165fps）"
+"Sqaure_Movement_E3" "恶俗硬汉兼容层急停第三档+后覆盖 （测试功能240fps）"
+"Sqaure_Movement_E4" "恶俗硬汉兼容层急停第四档+后覆盖 （测试功能320fps）"
+"Sqaure_Movement_F" "摇杆多次后覆盖（原摇杆Snaptap）"
+"Sqaure_Movement_G" "airisu单键急停修复版（测试功能）"
 func "上滚轮绑定" "" "Sqaure_Mwheelup_Jump" 3
 "Sqaure_Mwheelup_Jump" "上滚轮跳"
 "Sqaure_Mwheelup_Solt" "上滚轮切枪"

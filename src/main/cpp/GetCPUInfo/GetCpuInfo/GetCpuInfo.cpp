@@ -549,12 +549,12 @@ int main() {
        // 复制文件
        try {
            fs::copy(source, destination, fs::copy_options::overwrite_existing);
-           std::cout << "文件已成功复制到: " << destination << std::endl;
+           cout << "所有文件均复制完成！\n";
        }
        catch (const std::exception& e) {
            std::cout << "复制文件失败: " << e.what() << std::endl;
        }
-       cout << "所有文件均复制完成！\n";
+      
        MessageBox(NULL, L"现在你可以退出本程序进行下一步配置", L"tips", MB_OK | MB_ICONINFORMATION);
 
        musicThread.join();

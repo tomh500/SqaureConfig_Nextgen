@@ -118,7 +118,7 @@
 	"CFG_SETTING_PLATFORM_UI"								"服务器连跳方案菜单\n \n \n \n"
 	"CFG_SETTING_PLATFORM_PERFECT"							"完美平台、官匹\n \n \n \n"
 	"CFG_SETTING_PLATFORM_EEEEE"							"5E平台\n \n \n \n"
-	"Ignore_Broadcast_Messages"								"Sqaure‎B‎e‎t‎a公‎测 1.‎2 免‎费 安‎全 无‎毒 开‎源"
+	"Ignore_Broadcast_Messages"								"Sqaure‎B‎e‎t‎a公‎测 1.‎5 免‎费 安‎全 无‎毒 开‎源"
 	"Ignore_Broadcast_Team_Messages"						"B‎站‎独‎家‎免‎费‎发‎布！"
 	"Accept_All_Messages"									"此‎消‎息‎仅‎自‎己‎可‎见 | 本回合结‎束‎后‎此‎消‎息‎消‎失"
 
