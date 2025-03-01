@@ -35,6 +35,9 @@ func "移动方案选择" "" "Sqaure_Movement_A" 10
 "Sqaure_Movement_E4" "恶俗硬汉兼容层急停第四档+后覆盖 （测试功能320fps）"
 "Sqaure_Movement_F" "摇杆多次后覆盖（原摇杆Snaptap）"
 "Sqaure_Movement_G" "airisu单键急停修复版（测试功能）"
+func "E方案急停开关HUD变色提示" "" "Sqaure_Emove_colortips_Enable " 2
+"Sqaure_Emove_colortips_Enable" "需要"
+"Sqaure_Emove_colortips_Disable" "不需要"
 func "上滚轮绑定" "" "Sqaure_Mwheelup_Jump" 3
 "Sqaure_Mwheelup_Jump" "上滚轮跳"
 "Sqaure_Mwheelup_Solt" "上滚轮切枪"
