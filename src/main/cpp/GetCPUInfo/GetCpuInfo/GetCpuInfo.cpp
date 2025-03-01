@@ -458,32 +458,9 @@ int main() {
 
        system("copy /Y src\\main\\resources\\linemap.webm  ..\\..\\panorama\\videos");
        system("copy /Y src\\main\\resources\\keybindings_schinese.txt  ..\\..\\resource\\keybindings_schinese.txt");
-       // Ensure the file has been created in the current directory
+       // Ensure the file has been created in the current director
 
-       if (vendor_c == 1)
-
-       {
-           system("copy /Y src\\main\\resources\\intro_intel.webm  ..\\..\\panorama\\videos\\intro.webm");
-           system("copy /Y src\\main\\resources\\intro_intel.webm  ..\\..\\panorama\\videos\\intro720p.webm");
-           system("copy /Y src\\main\\resources\\intro_intel.webm  ..\\..\\panorama\\videos\\intro-perfectworld.webm");
-           system("copy /Y src\\main\\resources\\intro_intel.webm  ..\\..\\panorama\\videos\\intro-perfectworld720p.webm");
-       }
-       else {
-           string insteadboot;
-           cout << "是否允许替换游戏启动画面和音乐，如果不允许，请输入0，否则将默认替换：";
-           cin >> insteadboot;
-           if (insteadboot != "0")
-           {
-               system("copy /Y src\\main\\resources\\sounds\\bootsounds.vsnd_c  ..\\..\\sounds");
-               system("copy /Y src\\main\\resources\\intro.webm  ..\\..\\panorama\\videos");
-               system("copy /Y src\\main\\resources\\intro720p.webm  ..\\..\\panorama\\videos");
-               system("copy /Y src\\main\\resources\\intro-perfectworld.webm  ..\\..\\panorama\\videos");
-               system("copy /Y src\\main\\resources\\intro-perfectworld720p.webm  ..\\..\\panorama\\videos");
-               cout << "1\n\n";
-           }
-           cout << "0\n\n";
-
-       }
+       
        
        system("cls");
        GetCPUInfo();
@@ -549,6 +526,19 @@ int main() {
        // 复制文件
        try {
            fs::copy(source, destination, fs::copy_options::overwrite_existing);
+           string insteadboot;
+           cout << "是否允许替换游戏启动画面和音乐，如果不允许，请输入0，否则将默认替换：";
+           cin >> insteadboot;
+           if (insteadboot != "0")
+           {
+               system("copy /Y src\\main\\resources\\sounds\\bootsounds.vsnd_c  ..\\..\\sounds");
+               system("copy /Y src\\main\\resources\\intro.webm  ..\\..\\panorama\\videos");
+               system("copy /Y src\\main\\resources\\intro720p.webm  ..\\..\\panorama\\videos");
+               system("copy /Y src\\main\\resources\\intro-perfectworld.webm  ..\\..\\panorama\\videos");
+               system("copy /Y src\\main\\resources\\intro-perfectworld720p.webm  ..\\..\\panorama\\videos");
+               cout << "1\n\n";
+           }
+           cout << "0\n\n";
            cout << "所有文件均复制完成！\n";
        }
        catch (const std::exception& e) {
