@@ -11,6 +11,11 @@
 添加启动项 +exec Sqaure/Setup 或者在autoexec.cfg内填写 exec Sqaure/setup 即可
 本CFG暂时与其他CFG不兼容，请谨慎使用其他CFG，在装载本CFG之前，请确保你已经删除其他第三方CFG并重置游戏按键等
 
+Beta-1.6更新日志
+[+]添加模组市场
+[+]大幅优化项目结构
+[+]重新接入Asul安装器
+
 Beta-1.5.2更新日志
 [+]内置恶俗硬汉急停V6（改）
 [+]修复诸多BUG

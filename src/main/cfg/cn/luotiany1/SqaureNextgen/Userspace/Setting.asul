@@ -1,0 +1,94 @@
+line "spinbot_yaw" "替换下面的数值，计算方法为 180/(A*B)，其中A为游戏灵敏度，B为m_yaw（一般为0.022）" "alias spinbot yaw %1 1 1" "6293.706294"
+line "rec_sensitivity" "替换为你的游戏灵敏度，否则进入游戏会付出相应的代价" "alias rec_sensitivity sensitivity %1" "1.28"
+
+line "Superlow_s" "建议设定超低灵敏度（与上面灵敏度有关）" "alias Superlow_s alias rec_sensitivity sensitivity %1" "1.15"
+line "low_s" "建议设定低灵敏度" "alias low_s alias rec_sensitivity sensitivity %1" "1.25"
+line "mid_s" "建议设定中灵敏度" "alias mid_s alias rec_sensitivity sensitivity %1" "1.3"
+line "high_s" "建议设定高灵敏度" "alias high_s alias rec_sensitivity sensitivity %1" "1.33"
+line "Superhigh_s" "建议设定超高灵敏度" "alias Superhigh_s alias rec_sensitivity sensitivity %1" "1.4"
+
+line "Superlow_r" "快捷切换——超低灵敏度" "alias Superlow_r alias spinbot yaw %1 1 1" "7114.624506"
+line "low_r" "快捷切换——低灵敏度" "alias low_r alias spinbot yaw %1 1 1" "6545.454545"
+line "mid_r" "快捷切换——中灵敏度" "alias mid_r alias spinbot yaw %1 1 1" "6293.706294"
+line "high_r" "快捷切换——高灵敏度" "alias high_r alias spinbot yaw %1 1 1" "6151.742994"
+line "Superhigh_r" "快捷切换——超高灵敏度" "alias Superhigh_r alias spinbot yaw %1 1 1" "5844.155844"
+
+line "rec_crosshair_r" "设置你的准心红色值" "alias rec_crosshair_r cl_crosshaircolor_r %1" "102"
+line "rec_crosshair_g" "设置你的准心绿色值" "alias rec_crosshair_g cl_crosshaircolor_g %1" "204"
+line "rec_crosshair_b" "设置你的准心蓝色值" "alias rec_crosshair_b cl_crosshaircolor_b %1" "255"
+
+func "输出方式" "请选择你的输出方式" "Sqaure_Output_Team" 4
+"Sqaure_Output_Team" "输出到队伍"
+"Sqaure_Output_All" "输出到公屏"
+"Sqaure_Output_Echo" "输出到控制台"
+"Sqaure_Output_Null" "不输出"
+
+func "模块提示音" "是否启用模块开关提示音" "Sqaure_TipSound_Enable" 2
+"Sqaure_TipSound_Enable" "开启"
+"Sqaure_TipSound_Disable" "关闭"
+
+func "开火动作desubtick" "是否对开火动作进行desubtick处理" "Sqaure_Desubtick_Disable" 2
+"Sqaure_Desubtick_Enable" "开启"
+"Sqaure_Desubtick_Disable" "关闭"
+
+func "移动动作desubtick" "是否对移动动作进行desubtick处理" "Sqaure_MoveDesubtick_Disable" 2
+"Sqaure_MoveDesubtick_Enable" "开启"
+"Sqaure_MoveDesubtick_Disable" "关闭"
+
+func "移动方案" "请选择你的移动方案" "Sqaure_Movement_A" 10
+"Sqaure_Movement_A" "键盘方案"
+"Sqaure_Movement_B" "摇杆方案"
+"Sqaure_Movement_C" "键盘多次后覆盖（原Snaptap）"
+"Sqaure_Movement_D" "键盘单次后覆盖（原Nullbind）"
+"Sqaure_Movement_E1" "恶俗硬汉兼容层急停第一档+后覆盖（测试功能锁120帧）"
+"Sqaure_Movement_E2" "恶俗硬汉兼容层急停第二档+后覆盖（测试功能锁165帧）"
+"Sqaure_Movement_E3" "恶俗硬汉兼容层急停第三档+后覆盖（测试功能锁240帧）"
+"Sqaure_Movement_E4" "恶俗硬汉兼容层急停第四档+后覆盖（测试功能锁320帧）"
+"Sqaure_Movement_F" "摇杆多次后覆盖（原摇杆Snaptap）"
+"Sqaure_Movement_G1" "airisu单键急停修复版（测试功能）"
+"Sqaure_Movement_G2" "airisu双键急停修复版（测试功能）"
+
+func "上滚轮绑定" "输入你的上滚轮绑定情况" "Sqaure_Mwheelup_Jump" 3
+"Sqaure_Mwheelup_Jump" "上滚轮跳"
+"Sqaure_Mwheelup_Solt" "上滚轮切枪"
+"Sqaure_Mwheelup_Null" "上滚轮无动作"
+
+func "下滚轮绑定" "输入你的下滚轮绑定情况" "Sqaure_Mwheeldown_Jump" 3
+"Sqaure_Mwheeldown_Jump" "下滚轮跳"
+"Sqaure_Mwheeldown_Solt" "下滚轮切枪"
+"Sqaure_Mwheeldown_Null" "下滚轮无动作"
+
+func "自动手枪" "设置自动手枪功能（请在KeyBinds中设置快捷键）" "Sqaure_AutoShoot_Disable" 2
+"Sqaure_AutoShoot_Enable" "自动手枪开启"
+"Sqaure_AutoShoot_Disable" "自动手枪关闭"
+
+func "连跳增强" "是否开启连跳增强" "Sqaure_BetterBhop_Disable" 2
+"Sqaure_BetterBhop_Enable" "开启连跳增强"
+"Sqaure_BetterBhop_Disable" "禁用连跳增强"
+
+func "自动连跳" "是否启用自动连跳" "Sqaure_AutoBhop_Disbale" 2
+"Sqaure_AutoBhop_Enable" "开启自动连跳"
+"Sqaure_AutoBhop_Disbale" "禁用自动连跳"
+
+func "自动连跳方案" "选择自动连跳方案" "Sqaure_AutoBhop_Auto" 1
+"Sqaure_AutoBhop_Auto" "全自动连跳"
+
+func "游戏平台" "请选择你游玩的平台" "Sqaure_Platform_Normal" 3
+"Sqaure_Platform_Normal" "官方服务器竞技模式（需等待大厅）"
+"Sqaure_Platform_Perfect" "完美对战平台/Faceit（立即加入服务器）"
+"Sqaure_Platform_EEEEE" "特殊情况（非开发人员请勿选择）"
+
+func "滚轮跳方案" "请选择滚轮跳方案" "Sqaure_MwheelJump_A" 3
+"Sqaure_MwheelJump_A" "正常方案"
+"Sqaure_MwheelJump_B" "Desubtick方案"
+"Sqaure_MwheelJump_C" "MouseXY方案"
+
+func "自动检视" "选择自动检视方案" "Sqaure_lkatwp_null" 4
+"Sqaure_lkatwp_3" "按3自动检视"
+"Sqaure_lkatwp_4" "按4自动检视"
+"Sqaure_lkatwp_muti" "按3、4均自动检视"
+"Sqaure_lkatwp_null" "不自动检视"
+
+func "大厅音乐" "设置大厅音乐模式（限AMD）" "Sqaure_Loadmusic_BA" 2
+"Sqaure_Loadmusic_BA" "替换为碧蓝档案LOAD音乐"
+"Sqaure_Loadmusic_Mute" "静音"
