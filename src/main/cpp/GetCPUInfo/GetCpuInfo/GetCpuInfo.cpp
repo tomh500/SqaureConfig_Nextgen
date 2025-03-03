@@ -14,6 +14,10 @@
 #define SDL_MAIN_HANDLED
 #include <SDL.h>
 #include <SDL_mixer.h>
+#include <algorithm>
+#include <wininet.h>
+
+#pragma comment(lib, "wininet.lib")
 
 #pragma comment(lib, "comsuppw.lib")
 #pragma comment(lib, "wbemuuid.lib")
@@ -138,13 +142,13 @@ int GetRegionCode() {
     if (len > 0) {
         string regionStr(region);
         if (regionStr == "CN") {
-            return 1; // 中国大陆
+            return 1;
         }
         else if (regionStr == "TW") {
-            return 2; // 台湾
+            return 2;
         }
-        else if (regionStr == "HK") {
-            return 3; // 香港特别行政区
+        else if (regionStr == "JP") {
+            return 3;
         }
     }
     return 0; // 未知
@@ -293,8 +297,8 @@ void HandleCpuTypeAndAppend(const string& vendor, const string& brand, const str
         vendor_c = 1;
         if (brand.find("Intel(R) Core(TM) i5-12400F") != string::npos ||
             brand.find("Intel(R) Core(TM) i5-12600KF") != string::npos) {
-            newAliasCommand = "alias Sqaure_Fps_Default \"fps_max 539\"";
-            fps = "539";
+            newAliasCommand = "alias Sqaure_Fps_Default \"fps_max 1009\"";
+            fps = "1009";
         }
         else {
             newAliasCommand = "alias Sqaure_Fps_Default \"fps_max 1009\"";
@@ -304,8 +308,8 @@ void HandleCpuTypeAndAppend(const string& vendor, const string& brand, const str
     else if (vendor == "AuthenticAMD") {
         vendor_c = 2;
         if (brand.find("AMD Ryzen 7500F") != string::npos) {
-            newAliasCommand = "alias Sqaure_Fps_Default \"fps_max 539\"";
-            fps = "539";
+            newAliasCommand = "alias Sqaure_Fps_Default \"fps_max 1009\"";
+            fps = "1009";
         }
         else {
             newAliasCommand = "alias Sqaure_Fps_Default \"fps_max 1009\"";
@@ -359,10 +363,10 @@ void ShowRegionMessage(int regionCode) {
         message = L"你所在的地区是台湾地区。本CFG完全免费！";
         break;
     case 3:
-        message = L"你所在的地区是香港特别行政区。本CFG完全免费！";
+        message = L"你所在的地区是日本。本CFG完全免费！";
         break;
     default:
-        message = L"非中国大陆、香港特别行政区、台湾地区。本CFG完全免费！";
+        message = L"非中国、日本地区，可能不适配您的语言信息，本CFG完全免费！";
         break;
     }
     MessageBoxW(NULL, message.c_str(), L"地区信息", MB_OK | MB_ICONINFORMATION);
@@ -428,6 +432,39 @@ bool SaveResourceToFile(UINT resourceID, const wchar_t* fileName) {
     wcout << L"资源已保存到文件: " << fileName << endl;
     return true;
 }
+
+
+// 下载文件并返回 UTF-8 编码的 string
+string DownloadFile(const wstring& url) {
+    HINTERNET hInternet = InternetOpen(L"HTTPGET", INTERNET_OPEN_TYPE_PRECONFIG, NULL, NULL, 0);
+    if (!hInternet) return "";
+
+    HINTERNET hConnect = InternetOpenUrl(hInternet, url.c_str(), NULL, 0, INTERNET_FLAG_RELOAD, 0);
+    if (!hConnect) {
+        InternetCloseHandle(hInternet);
+        return "";
+    }
+
+    char buffer[4096];
+    DWORD bytesRead;
+    string content;
+    while (InternetReadFile(hConnect, buffer, sizeof(buffer), &bytesRead) && bytesRead) {
+        content.append(buffer, bytesRead);
+    }
+
+    InternetCloseHandle(hConnect);
+    InternetCloseHandle(hInternet);
+    return content;
+}
+
+// wstring 转 UTF-8 string
+string WStringToString(const wstring& wstr) {
+    int size_needed = WideCharToMultiByte(CP_UTF8, 0, wstr.c_str(), (int)wstr.length(), NULL, 0, NULL, NULL);
+    string str(size_needed, 0);
+    WideCharToMultiByte(CP_UTF8, 0, wstr.c_str(), (int)wstr.length(), &str[0], size_needed, NULL, NULL);
+    return str;
+}
+
 
 int main() {
     system("@echo off");
@@ -510,9 +547,7 @@ int main() {
             PROCESS_INFORMATION pi;
 
             if (CreateProcess(L"ModsMarket.exe", NULL, NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi)) {
-                // 等待 ModsMarket.exe 进程结束
                 WaitForSingleObject(pi.hProcess, INFINITE);
-                // 关闭进程句柄
                 CloseHandle(pi.hProcess);
                 CloseHandle(pi.hThread);
             }
@@ -537,8 +572,8 @@ int main() {
             CopyFileOptimized("src\\main\\resources\\intro-perfectworld720p.webm", "..\\..\\panorama\\videos\\intro-perfectworld720p.webm");
         }*/
 
-        int msgboxID = MessageBoxW(NULL, L"是否允许替换游戏启动画面和音乐？（需要模组）", L"提示", MB_YESNO | MB_ICONQUESTION);
-        if (msgboxID == IDYES) {
+        int msgboxBA = MessageBoxW(NULL, L"是否允许替换游戏启动画面为“碧蓝档案”？（需要模组）", L"提示", MB_YESNO | MB_ICONQUESTION);
+        if (msgboxBA == IDYES) {
             CopyFileOptimized("src\\main\\resources\\sounds\\bootsounds.vsnd_c", "..\\..\\sounds\\bootsounds.vsnd_c");
             CopyFileOptimized("src\\main\\resources\\intro.webm", "..\\..\\panorama\\videos\\intro.webm");
             CopyFileOptimized("src\\main\\resources\\intro720p.webm", "..\\..\\panorama\\videos\\intro720p.webm");
@@ -575,7 +610,7 @@ int main() {
         }
 
         MessageBox(NULL, L"现在你可以退出本程序进行下一步配置", L"tips", MB_OK | MB_ICONINFORMATION);
-        system("start teach");
+   
         if (musicThread.joinable()) {
             musicThread.join();
         }

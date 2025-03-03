@@ -5,54 +5,17 @@
 #include <vector>
 #include <map>
 #include <string>
-#include <cwctype> // 用于 iswdigit
+#include <cwctype>
+#include <algorithm>
+#include <fstream>
 
 #pragma comment(lib, "wininet.lib")
 
 using namespace std;
 
-int debug = 0; // 调试模式，1 时打印更多调试信息
+int debug = 1; // 调试模式，1 时打印更多调试信息
 
-// 获取当前代理状态
-wstring GetCurrentProxy() {
-    HKEY hKey;
-    const wchar_t* regPath = L"Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings";
-    wchar_t buffer[256];
-    DWORD bufferSize = sizeof(buffer);
-    wstring proxy;
 
-    if (RegOpenKeyEx(HKEY_CURRENT_USER, regPath, 0, KEY_QUERY_VALUE, &hKey) == ERROR_SUCCESS) {
-        DWORD enable;
-        DWORD enableSize = sizeof(enable);
-
-        if (RegQueryValueEx(hKey, L"ProxyEnable", NULL, NULL, (LPBYTE)&enable, &enableSize) == ERROR_SUCCESS && enable == 1) {
-            if (RegQueryValueEx(hKey, L"ProxyServer", NULL, NULL, (LPBYTE)buffer, &bufferSize) == ERROR_SUCCESS) {
-                proxy = buffer;  // 读取代理地址
-            }
-        }
-        RegCloseKey(hKey);
-    }
-    return proxy;
-}
-
-// 设置代理
-void SetProxy(const wstring& proxy) {
-    HKEY hKey;
-    const wchar_t* regPath = L"Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings";
-
-    if (RegOpenKeyEx(HKEY_CURRENT_USER, regPath, 0, KEY_SET_VALUE, &hKey) == ERROR_SUCCESS) {
-        DWORD enable = proxy.empty() ? 0 : 1;
-        RegSetValueEx(hKey, L"ProxyEnable", 0, REG_DWORD, (const BYTE*)&enable, sizeof(enable));
-
-        if (!proxy.empty()) {
-            RegSetValueEx(hKey, L"ProxyServer", 0, REG_SZ, (const BYTE*)proxy.c_str(), (proxy.size() + 1) * sizeof(wchar_t));
-        }
-        else {
-            RegDeleteValue(hKey, L"ProxyServer");
-        }
-        RegCloseKey(hKey);
-    }
-}
 
 // 清屏
 void ClearScreen() {
@@ -74,6 +37,14 @@ wstring StringToWString(const string& str) {
     wstring wstr(size_needed, 0);
     MultiByteToWideChar(CP_UTF8, 0, str.c_str(), (int)str.length(), &wstr[0], size_needed);
     return wstr;
+}
+
+// wstring 转 UTF-8 string
+string WStringToString(const wstring& wstr) {
+    int size_needed = WideCharToMultiByte(CP_UTF8, 0, wstr.c_str(), (int)wstr.length(), NULL, 0, NULL, NULL);
+    string str(size_needed, 0);
+    WideCharToMultiByte(CP_UTF8, 0, wstr.c_str(), (int)wstr.length(), &str[0], size_needed, NULL, NULL);
+    return str;
 }
 
 // 下载文件并返回 UTF-8 编码的 string
@@ -99,13 +70,7 @@ string DownloadFile(const wstring& url) {
     return content;
 }
 
-// wstring 转 UTF-8 string
-string WStringToString(const wstring& wstr) {
-    int size_needed = WideCharToMultiByte(CP_UTF8, 0, wstr.c_str(), (int)wstr.length(), NULL, 0, NULL, NULL);
-    string str(size_needed, 0);
-    WideCharToMultiByte(CP_UTF8, 0, wstr.c_str(), (int)wstr.length(), &str[0], size_needed, NULL, NULL);
-    return str;
-}
+
 
 // 执行命令
 void ExecuteCommand(const wstring& cmd) {
@@ -123,9 +88,116 @@ void WaitForKeyPress() {
     }
 }
 
+void RemoveExistingProxySettings(const string& filePath) {
+    ifstream file(filePath);  // 打开文件读取
+    if (!file) {
+        cerr << "无法打开文件: " << filePath << endl;
+        return;
+    }
+
+    // 使用一个字符串流来存储所有非代理行
+    stringstream buffer;
+    string line;
+    while (getline(file, line)) {
+        // 检查是否是代理配置行（http_proxy、https_proxy 或 all_proxy），如果是就跳过
+        if (line.find("http_proxy") == string::npos &&
+            line.find("https_proxy") == string::npos &&
+            line.find("all_proxy") == string::npos) {
+            buffer << line << endl;
+        }
+    }
+    file.close();
+
+    // 重新写回文件，更新代理配置
+    ofstream outFile(filePath);
+    if (!outFile) {
+        cerr << "无法打开文件: " << filePath << endl;
+        return;
+    }
+
+    outFile << buffer.str();  // 写入新的内容
+    outFile.close();
+
+    cout << "代理配置已清除。" << endl;
+}
+
+// 用于设置新的代理配置到 wget 配置文件
+void SetProxyToWgetRC(const string& proxyAddress) {
+    string wgetRCFilePath = "src/main/lib/.wgetrc";  // 假设的 .wgetrc 配置文件路径
+
+    // 删除现有的代理设置
+    RemoveExistingProxySettings(wgetRCFilePath);
+
+    // 打开文件（追加模式）
+    ofstream file(wgetRCFilePath, ios::app);  // 确保使用 std::ofstream
+    if (!file) {
+        cerr << "无法打开文件: " << wgetRCFilePath << endl;
+        return;
+    }
+
+    // 写入代理设置
+    file << "# Proxy settings added via C++ program\n";
+
+    // 只设置 http_proxy 和 https_proxy
+    if (!proxyAddress.empty()) {
+        file << "http_proxy = " << proxyAddress << "\n";
+        file << "https_proxy = " << proxyAddress << "\n";
+    }
+    else {
+        // 如果没有代理，清空配置文件中的代理设置
+        file << "http_proxy = \n";
+        file << "https_proxy = \n";
+    }
+
+    file.close();
+
+    cout << "代理设置已成功写入 " << wgetRCFilePath << endl;
+}
+
+
 int main() {
     system("chcp 65001");  // 设置 UTF-8 编码
+    int choiceProxy;
 
+    // 使用宽字符串进行交互，但通过窄字符串输出
+    wstring wmessage = L"是否开启代理？请选择序号：\n";
+    wmessage += L"  1. 无需代理\n";
+    wmessage += L"  2. 本地 HTTP 代理（127.0.0.1:7890）\n";
+    wmessage += L"  3. 自定义代理\n\n";
+    wmessage += L"请输入你的选择> ";
+
+    // 将宽字符串转回窄字符串
+    cout << WStringToString(wmessage);
+
+    cin >> choiceProxy; // 用户输入选择
+
+    string proxyAddress;
+
+    if (choiceProxy == 1) {
+        // 不使用代理
+        proxyAddress = "";
+        cout << "未开启代理" << endl;
+    }
+    else if (choiceProxy == 2) {
+        // 使用本地 HTTP 代理
+        proxyAddress = "http://127.0.0.1:7890";
+        cout << "已开启 HTTP 代理，端口：7890" << endl;
+    }
+    else if (choiceProxy == 3) {
+        // 自定义代理
+        wstring wcustomMessage = L"请输入代理地址（例如：http://127.0.0.1:8080）：";
+        cout << WStringToString(wcustomMessage);
+        cin >> proxyAddress;
+        cout << "已设置自定义代理：" << proxyAddress << endl;
+    }
+    else {
+        cout << "无效的选择，请重新输入。" << endl;
+        return 1;  // 退出程序
+    }
+
+    // 将代理设置写入 .wgetrc 文件
+    SetProxyToWgetRC(proxyAddress);
+    Sleep(2000);
     // 清屏
     ClearScreen();
 
@@ -138,83 +210,98 @@ int main() {
 
     if (modListContent.empty() || dlCommandContent.empty()) {
         cout << "下载失败，请检查网络连接。" << endl;
-        return 1;
+       // return 1;
     }
 
     // 分析 DLCommand.txt 内容并标记被屏蔽的项
+// 分析 DLCommand.txt 内容并标记被屏蔽的项
     wstringstream cmdStream(dlCommandContent);
     wstring line, currentKey;
     map<wstring, vector<wstring>> commandMap;
-    map<wstring, bool> hiddenMods; // 用于存储被注释的 Mod
+    map<wstring, bool> hiddenMods; // 用于存储模组是否被屏蔽
 
     while (getline(cmdStream, line)) {
         wstring trimmed = trim(line);
-        if (!trimmed.empty() && iswdigit(trimmed[0])) {
-            currentKey = trimmed.substr(0, trimmed.find(L':'));
-            hiddenMods[currentKey] = false; // 默认不是被注释的
-            commandMap[currentKey] = {};
+        if (trimmed.empty())
+            continue;
+
+        // 判断是否为 header 行（模组编号行），要求以冒号结尾
+        if (trimmed.back() == L':') {
+            bool headerBlocked = false;
+            wstring headerLine = trimmed;
+            // 如果以 '#' 开头，则标记整个模组被屏蔽，并去掉这个符号
+            if (headerLine[0] == L'#') {
+                headerBlocked = true;
+                headerLine = headerLine.substr(1); // 去除首字符 #
+                headerLine = trim(headerLine);
+            }
+            // headerLine 应该形如 "1:"，提取冒号前面的数字作为 key
+            size_t pos = headerLine.find(L':');
+            if (pos != wstring::npos) {
+                currentKey = headerLine.substr(0, pos);
+                hiddenMods[currentKey] = headerBlocked;
+                commandMap[currentKey] = vector<wstring>();
+            }
         }
-        else if (!currentKey.empty() && trimmed.find(L"#--") == 0) {
-            commandMap[currentKey].push_back(trimmed.substr(3)); // 跳过#
-        }
-        else if (!currentKey.empty() && trimmed.find(L"--") == 0) {
-            commandMap[currentKey].push_back(trimmed.substr(2));
-        }
-        else if (trimmed.find(L"#") == 0) {
-            hiddenMods[currentKey] = true; // 标记为被屏蔽
+        else if (!currentKey.empty()) {
+            // 判断是否为被注释的命令行（仅跳过该行，不将模组标记为屏蔽）
+            if (trimmed.find(L"#--") == 0) {
+                // 跳过被注释的命令，不执行
+                continue;
+            }
+            // 正常命令行
+            else if (trimmed.find(L"--") == 0) {
+                commandMap[currentKey].push_back(trimmed.substr(2));
+            }
         }
     }
 
-    // 更新 ModList 内容，替换为被屏蔽的插件
+
+    // 更新 ModList 内容，替换为被屏蔽的模组
     wstringstream updatedModList;
     wstringstream modListStream(modListContent);
     int modIndex = 1;
     while (getline(modListStream, line)) {
         wstring trimmedLine = trim(line);
-        wstring displayText = hiddenMods[to_wstring(modIndex)] ? L"<被屏蔽的插件>" : trimmedLine;
+        wstring displayText = hiddenMods[to_wstring(modIndex)] ? L"<被屏蔽的模组>" : trimmedLine;
         updatedModList << displayText << endl;
         modIndex++;
     }
 
-    cout << "请选择一个或多个插件 (用逗号分隔):" << endl;
+    // 用户输入模组编号
+    cout << "请选择一个模组 (输入编号):" << endl;
     cout << WStringToString(updatedModList.str()) << endl;
 
     string userInput;
-    cin.ignore(); // 清除输入缓冲区
-    getline(cin, userInput);
+    cin >> userInput; // 只接受一个输入
 
-    stringstream userStream(userInput);
-    string temp;
-    vector<int> choices;
-
-    // 解析用户选择
-    while (getline(userStream, temp, ',')) {
-        try {
-            choices.push_back(stoi(temp));
-        }
-        catch (...) {
-            cout << "无效输入！" << endl;
-            return 1;
-        }
+    // 检查输入是否是数字
+    bool validInput = all_of(userInput.begin(), userInput.end(), ::isdigit);
+    if (!validInput) {
+        cout << "无效输入！请输入一个正确的编号。" << endl;
+       // return 1;
     }
 
-    // 遍历用户选择的插件
-    for (int choice : choices) {
-        wstring key = to_wstring(choice);
-        if (hiddenMods[key]) {
-            cout << "拒绝执行: 插件 " << choice << " 被屏蔽。" << endl;
+    int selectedChoice = stoi(userInput);
+    wstring key = to_wstring(selectedChoice);
+
+    // 检查是否被屏蔽
+    if (hiddenMods[key]) {
+        cout << "拒绝执行: 模组 " << selectedChoice << " 被屏蔽。" << endl;
+    }
+    else {
+        if (commandMap.find(key) != commandMap.end() && !commandMap[key].empty()) {
+            for (const auto& cmd : commandMap[key]) {
+            
+                ExecuteCommand(cmd);
+            }
         }
         else {
-            if (commandMap.find(key) != commandMap.end()) {
-                for (const auto& cmd : commandMap[key]) {
-                    ExecuteCommand(cmd);
-                }
-            }
-            else {
-                cout << "插件 " << choice << " 无效。" << endl;
-            }
+            cout << "模组 " << selectedChoice << " 无效或没有可执行的命令。" << endl;
         }
     }
+
+    Sleep(5000);
 
     return 0;
 }

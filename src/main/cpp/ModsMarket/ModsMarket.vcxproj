@@ -106,7 +106,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalOptions>/utf-8</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

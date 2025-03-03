@@ -45,7 +45,7 @@ func "移动方案" "请选择你的移动方案" "Sqaure_Movement_A" 10
 "Sqaure_Movement_E3" "恶俗硬汉兼容层急停第三档+后覆盖（测试功能锁240帧）"
 "Sqaure_Movement_E4" "恶俗硬汉兼容层急停第四档+后覆盖（测试功能锁320帧）"
 "Sqaure_Movement_F" "摇杆多次后覆盖（原摇杆Snaptap）"
-"Sqaure_Movement_G" "airisu单键急停修复版（测试功能）"
+"Sqaure_Movement_G1" "airisu单键急停修复版（测试功能）"
 
 func "上滚轮绑定" "输入你的上滚轮绑定情况" "Sqaure_Mwheelup_Jump" 3
 "Sqaure_Mwheelup_Jump" "上滚轮跳"
