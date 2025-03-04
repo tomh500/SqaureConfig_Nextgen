@@ -136,7 +136,7 @@ void SetProxyToWgetRC(const string& proxyAddress) {
     }
 
     // 写入代理设置
-    file << "# Proxy settings added via C++ program\n";
+    //file << "# Proxy settings added via C++ program\n";
 
     // 只设置 http_proxy 和 https_proxy
     if (!proxyAddress.empty()) {
@@ -197,7 +197,7 @@ int main() {
 
     // 将代理设置写入 .wgetrc 文件
     SetProxyToWgetRC(proxyAddress);
-    Sleep(2000);
+    Sleep(500);
     // 清屏
     ClearScreen();
 
@@ -268,40 +268,46 @@ int main() {
         modIndex++;
     }
 
-    // 用户输入模组编号
-    cout << "请选择一个模组 (输入编号):" << endl;
-    cout << WStringToString(updatedModList.str()) << endl;
+    while (1)
+    {
+        ClearScreen();
+        // 用户输入模组编号
+        cout << "操作不可逆，若需删除模组，需要重装CFG官方发布包\n";
+        cout << "请选择一个模组 (输入编号):\n\n---------------------------------------------------------\n\n\n";
+        cout << WStringToString(updatedModList.str()) << endl;
+        cout << "\n-----------------------------------------------------\n\n当然后续你也可以通过CFG目录的快捷方式打开本市场，本市场不时更新一些模组，可能会需要\n\n请选择你要安装的模组序号，一次只能安装一个：";
 
-    string userInput;
-    cin >> userInput; // 只接受一个输入
+        string userInput;
+        cin >> userInput;
+        if (userInput == "0") return 0;
 
-    // 检查输入是否是数字
-    bool validInput = all_of(userInput.begin(), userInput.end(), ::isdigit);
-    if (!validInput) {
-        cout << "无效输入！请输入一个正确的编号。" << endl;
-       // return 1;
-    }
+        // 检查输入是否是数字
+        bool validInput = all_of(userInput.begin(), userInput.end(), ::isdigit);
+        if (!validInput) {
+            cout << "无效输入！请输入一个正确的编号。" << endl;
+            // return 1;
+        }
 
-    int selectedChoice = stoi(userInput);
-    wstring key = to_wstring(selectedChoice);
+        int selectedChoice = stoi(userInput);
+        wstring key = to_wstring(selectedChoice);
 
-    // 检查是否被屏蔽
-    if (hiddenMods[key]) {
-        cout << "拒绝执行: 模组 " << selectedChoice << " 被屏蔽。" << endl;
-    }
-    else {
-        if (commandMap.find(key) != commandMap.end() && !commandMap[key].empty()) {
-            for (const auto& cmd : commandMap[key]) {
-            
-                ExecuteCommand(cmd);
-            }
+        // 检查是否被屏蔽
+        if (hiddenMods[key]) {
+            cout << "拒绝执行: 模组 " << selectedChoice << " 被屏蔽。" << endl;
         }
         else {
-            cout << "模组 " << selectedChoice << " 无效或没有可执行的命令。" << endl;
+            if (commandMap.find(key) != commandMap.end() && !commandMap[key].empty()) {
+                for (const auto& cmd : commandMap[key]) {
+
+                    ExecuteCommand(cmd);
+                }
+            }
+            else {
+                cout << "模组 " << selectedChoice << " 无效或没有可执行的命令。" << endl;
+            }
         }
     }
-
-    Sleep(5000);
+    Sleep(2000);
 
     return 0;
 }

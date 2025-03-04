@@ -494,10 +494,7 @@ int main() {
             musicThread = thread(PlayBGMFromMemory, bgmResourceId);
         }
 
-        CopyFileOptimized("src\\main\\resources\\sounds\\disable_a.vsnd_c", "..\\..\\sounds\\disable_a.vsnd_c");
-        CopyFileOptimized("src\\main\\resources\\sounds\\enable_a.vsnd_c", "..\\..\\sounds\\enable_a.vsnd_c");
-        CopyFileOptimized("src\\main\\resources\\linemap.webm", "..\\..\\panorama\\videos\\linemap.webm");
-        CopyFileOptimized("src\\main\\resources\\keybindings_schinese.txt", "..\\..\\resource\\keybindings_schinese.txt");
+       
 
         system("cls");
         GetCPUInfo();
@@ -541,7 +538,7 @@ int main() {
             MessageBox(NULL, L"文件保存失败，未能创建文件。", L"错误", MB_ICONERROR);
         }
         // 询问是否打开模组市场
-        int modResponse = MessageBox(NULL, L"是否打开模组市场？", L"模组市场", MB_YESNO | MB_ICONQUESTION);
+        int modResponse = MessageBox(NULL, L"是否打开模组市场？如果你需要自动急停、在官匹游玩，可能需要安装一些模组", L"模组市场", MB_YESNO | MB_ICONQUESTION);
         if (modResponse == IDYES) {
             STARTUPINFO si = { sizeof(si) };
             PROCESS_INFORMATION pi;
@@ -572,18 +569,13 @@ int main() {
             CopyFileOptimized("src\\main\\resources\\intro-perfectworld720p.webm", "..\\..\\panorama\\videos\\intro-perfectworld720p.webm");
         }*/
 
-        int msgboxBA = MessageBoxW(NULL, L"是否允许替换游戏启动画面为“碧蓝档案”？（需要模组）", L"提示", MB_YESNO | MB_ICONQUESTION);
-        if (msgboxBA == IDYES) {
-            CopyFileOptimized("src\\main\\resources\\sounds\\bootsounds.vsnd_c", "..\\..\\sounds\\bootsounds.vsnd_c");
-            CopyFileOptimized("src\\main\\resources\\intro.webm", "..\\..\\panorama\\videos\\intro.webm");
-            CopyFileOptimized("src\\main\\resources\\intro720p.webm", "..\\..\\panorama\\videos\\intro720p.webm");
-            CopyFileOptimized("src\\main\\resources\\intro-perfectworld.webm", "..\\..\\panorama\\videos\\intro-perfectworld.webm");
-            CopyFileOptimized("src\\main\\resources\\intro-perfectworld720p.webm", "..\\..\\panorama\\videos\\intro-perfectworld720p.webm");
-        }
-
 
         // 复制 Sqaure_Installed.cfg 文件
+        CopyFileOptimized("src\\main\\resources\\sounds\\disable_a.vsnd_c", "..\\..\\sounds\\disable_a.vsnd_c");
+        CopyFileOptimized("src\\main\\resources\\sounds\\enable_a.vsnd_c", "..\\..\\sounds\\enable_a.vsnd_c");
+        CopyFileOptimized("src\\main\\resources\\keybindings_schinese.txt", "..\\..\\resource\\keybindings_schinese.txt");
         CopyFileOptimized("src\\main\\resources\\Sqaure_Installed.cfg", "..\\..\\..\\cfg\\Sqaure_Installed.cfg");
+
         cout << "所有文件均复制完成！\n";
 
         // 无论是否打开市场，都创建模组市场快捷方式

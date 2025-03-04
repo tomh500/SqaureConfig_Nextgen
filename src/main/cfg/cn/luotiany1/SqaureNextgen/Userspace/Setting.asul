@@ -88,6 +88,6 @@ func "自动检视" "选择自动检视方案" "Sqaure_lkatwp_null" 4
 "Sqaure_lkatwp_muti" "按3、4均自动检视"
 "Sqaure_lkatwp_null" "不自动检视"
 
-func "大厅音乐" "设置大厅音乐模式（限AMD）" "Sqaure_Loadmusic_BA" 2
+func "大厅音乐" "设置大厅音乐（需要增量）" "Sqaure_Loadmusic_BA" 2
 "Sqaure_Loadmusic_BA" "替换为碧蓝档案LOAD音乐"
 "Sqaure_Loadmusic_Mute" "静音"
