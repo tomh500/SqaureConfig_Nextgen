@@ -19,9 +19,9 @@
 
 ## 💼 Sqaure 介紹
 **Sqaure_Nextgen** 全新的SqaureConfig，本次的革新帶來了超多勁爆的功能，保留了功能模組化的同時，讓玩家可以使用 **更強大的** 的功能，且正在持續更新，超過20+的功能讓你獲取遊戲的自豪感。
-**Sqaure_Lite** 本質上是Sqaure_Legacy，是舊時代的遺留產物，通過一次更新，讓它搖身一變，能夠繼續提供服務，玩家可以輕松通過生成器制作一個單文件的cfg，且所有功能均合法，輕量化，性能++，完全繞過屏幕共享。
+**Sqaure_Lite** 本質上是Sqaure_Legacy，是舊時代的遺留產物，通過一次更新，讓它搖身一變，能夠繼續提供服務，玩家可以輕松通過生成器制作一個單檔案的cfg，且所有功能均合法，輕量化，性能++，完全旁路屏幕共享。
 在大多數情況喜愛，使用 **Sqaure** 不會導致 **VAC** 封禁。這僅僅是一個CFG項目。官方提供的功能👍
-
+F
 ## ✨ 特性
 - 🔥 配置迅速
 - 💤 界面簡潔
@@ -49,8 +49,8 @@
 ```
 *\Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\cfg
 
-將項目文件夾復制到裏面，並更名爲 Sqaure
-確保項目文件夾爲根目錄，然後運行GetCpuInfo.exe並運行OpenConfigSettingFolder.bat 配置 setting.cfg 和 keybinds.cfg
+將項目資料夾復制到裏面，並更名爲 Sqaure
+確保項目資料夾爲根目錄，然後運行GetCpuInfo.exe並運行OpenConfigSettingFolder.bat 配置 setting.cfg 和 keybinds.cfg
 ```
 
 ## 安裝方式
@@ -61,7 +61,7 @@
 ```
 ---
 **方式2**
-創建一個名爲 `autoexec.cfg` 的文件，在 `Counter-Strike Global Offensive\game\csgo\cfg` 裏面，內容應該爲：
+創建一個名爲 `autoexec.cfg` 的檔案，在 `Counter-Strike Global Offensive\game\csgo\cfg` 裏面，內容應該爲：
 ```
 exec Sqaure/setup
 ```
