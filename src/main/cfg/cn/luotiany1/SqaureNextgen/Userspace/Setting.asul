@@ -17,6 +17,14 @@ line "rec_crosshair_r" "设置你的准心红色值" "alias rec_crosshair_r cl_c
 line "rec_crosshair_g" "设置你的准心绿色值" "alias rec_crosshair_g cl_crosshaircolor_g %1" "204"
 line "rec_crosshair_b" "设置你的准心蓝色值" "alias rec_crosshair_b cl_crosshaircolor_b %1" "255"
 
+func "FPS档位" "选择一个你在任何情况下都能达到的fps档位，请勿越界选择，否则后果自负" "Sqaure_180fps"
+"Sqaure_180fps"
+"Sqaure_240fps"
+"Sqaure_360fps"
+"Sqaure_480fps"
+"Sqaure_540fps"
+
+
 func "输出方式" "请选择你的输出方式" "Sqaure_Output_Team" 4
 "Sqaure_Output_Team" "输出到队伍"
 "Sqaure_Output_All" "输出到公屏"

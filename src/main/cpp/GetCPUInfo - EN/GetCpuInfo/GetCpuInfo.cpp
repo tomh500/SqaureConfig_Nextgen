@@ -295,31 +295,32 @@ void AppendToFile(const string& filePath, const string& content) {
 
 void HandleCpuTypeAndAppend(const string& vendor, const string& brand, const string& filePath, string& fps) {
     string newAliasCommand;
+    newAliasCommand = "//installed";
     if (vendor == "GenuineIntel") {
         vendor_c = 1;
         if (brand.find("Intel(R) Core(TM) i5-12400F") != string::npos ||
             brand.find("Intel(R) Core(TM) i5-12600KF") != string::npos) {
-            newAliasCommand = "alias Sqaure_Fps_Default \"fps_max 1009\"";
+          //  newAliasCommand = "alias Sqaure_Fps_Default \"fps_max 1009\"";
             fps = "1009";
         }
         else {
-            newAliasCommand = "alias Sqaure_Fps_Default \"fps_max 1009\"";
+        //    newAliasCommand = "alias Sqaure_Fps_Default \"fps_max 1009\"";
             fps = "1009";
         }
     }
     else if (vendor == "AuthenticAMD") {
         vendor_c = 2;
         if (brand.find("AMD Ryzen 7500F") != string::npos) {
-            newAliasCommand = "alias Sqaure_Fps_Default \"fps_max 1009\"";
+           // newAliasCommand = "alias Sqaure_Fps_Default \"fps_max 1009\"";
             fps = "1009";
         }
         else {
-            newAliasCommand = "alias Sqaure_Fps_Default \"fps_max 1009\"";
+          //  newAliasCommand = "alias Sqaure_Fps_Default \"fps_max 1009\"";
             fps = "1009";
         }
     }
     else {
-        newAliasCommand = "alias Sqaure_Fps_Default \"fps_max 1009\"";
+      //  newAliasCommand = "alias Sqaure_Fps_Default \"fps_max 1009\"";
         fps = "1009";
     }
     string currentAliasCommand;
